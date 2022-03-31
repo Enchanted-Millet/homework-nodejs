@@ -1,0 +1,50 @@
+.App {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.topHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    text-align: center;
+    border: 5px solid red;
+    height: 100px;
+}
+
+.container {
+
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    border: 5px solid red;
+}
+
+item {
+    outline: 1px solid black;
+    height: 150px;
+    background: red;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    --itemWidth: 150px;
+    width: calc(var(--itemWidth));
+    margin-left: calc((100% - var(--itemWidth) * var(--n)) / (var(--n) + 1));
+}
+
+@media screen and (max-width: 900px) {
+    item { --n: 2; }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 900px) {
+    item { --n: 3; }
+}
+
+@media screen and (max-width: 1500px) and (min-width: 1200px) {
+    item { --n: 4; }
+}
+
+@media screen and (max-width: 8888px) and (min-width: 1500px) {
+    item { --n: 4; }
+}
+
