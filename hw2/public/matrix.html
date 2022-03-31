@@ -1,0 +1,19 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Matrix</title>
+    </head>
+
+    <body>
+        <div id="matrix">
+            <form action="/matrix/api/getMatrix" target="result" method="POST">
+                <label for="dimension">Please enter dimension:</label>
+                <input id="dimension" type="text" name="dimension" />
+                <input type="submit" value="Submit" />
+            </form>
+            <iframe name="result" frameborder="0" width="100%" height="100%"></iframe>
+        </div>
+    </body>
+</html>
