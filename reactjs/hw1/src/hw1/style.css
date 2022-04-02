@@ -1,0 +1,33 @@
+.table-row {
+    display: flex;
+    width: 80%;
+    /* justify-content: space-between; */
+}
+
+.table-cell {
+    flex-basis: 100%;
+}
+
+#container.container {
+    margin: auto;
+    width: 33%;
+    height: 500px;
+    border: 1px solid royalblue;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    border: 1px solid red;
+    flex-basis: 10%;
+}
+
+#content {
+    border: 1px dashed green;
+    flex-basis: 80%;
+}
+
+footer {
+    border: 1px solid purple;
+    flex-basis: 10%;
+}
