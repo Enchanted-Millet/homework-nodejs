@@ -1,0 +1,14 @@
+.todo-container {
+    width: 400px;
+    margin: auto;
+}
+
+.flex-box {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.flex-box span {
+    padding: 7px 0;
+}

@@ -1,0 +1,88 @@
+import React, { Component } from 'react';
+import List from './List';
+import './style.css';
+
+let ID = 1;
+
+const findOneById = (items, id) => {
+    return items.find(item => item.id === id);
+};
+
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            input: '',
+            items: []
+        };
+    }
+    handleInputChange = e => {
+        this.setState({
+            input: e.target.value
+        });
+    };
+
+    handleKeyDown = e => {
+        if (e.keyCode === 13) {
+            const newItem = {
+                id: ID++,
+                name: this.state.input,
+                completed: false
+            };
+            this.setState({ items: [...this.state.items, newItem], input: '' });
+        }
+    };
+
+    handleCheckItem = id => {
+        const items = [...this.state.items];
+        const item = findOneById(items, id);
+        // const item = findOneById(this.state.items, id);
+        if (item) {
+            item.completed = !item.completed;
+        }
+        console.log(this.state.items);
+        this.setState({ items });
+        // this.setState({ items: this.state.items });
+    };
+
+    handleClearAllCompleted = () => {
+        this.setState({ items: this.state.items.map(item => ({ ...item, completed: false })) });
+    };
+
+    handleMarkAllDone = () => {
+        this.setState({ items: this.state.items.map(item => ({ ...item, completed: true })) });
+    };
+
+    render() {
+        let { items } = this.state;
+        let remain = items.filter(item => !item.completed).length;
+        return (
+            <div className="todo-container">
+                <h1>Todos - ReactJs</h1>
+                <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Type a todo and hit Enter"
+                    value={this.state.input}
+                    onChange={this.handleInputChange}
+                    onKeyDown={this.handleKeyDown}
+                />
+                <div className="flex-box">
+                    <span>{remain} remaining</span>
+                    <button className="btn btn-outline-secondary" onClick={this.handleClearAllCompleted}>
+                        Clear Completed Todos
+                    </button>
+                </div>
+                <div>
+                    <List
+                        items={items}
+                        handleCheckItem={this.handleCheckItem}
+                        handleMarkAllDone={this.handleMarkAllDone}
+                    />
+                </div>
+            </div>
+        );
+    }
+}
+
+export default App;
