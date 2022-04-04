@@ -1,6 +1,7 @@
 import './App.css';
 import {useState} from "react";
 
+// Bugs occur when invoking "Clear completed todos tasks", need some hints please
 function App() {
     const [todos, setTodos] = useState([]);
     const [todo, setTodo] = useState("");
