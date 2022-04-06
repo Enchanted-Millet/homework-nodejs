@@ -1,0 +1,27 @@
+.add {
+    background-color: rgb(46, 158, 196);
+    color: white;
+   width: 50%;
+   height: 50px;
+}
+.minus {
+    background-color: rgb(46, 158, 196);
+color: white;
+width: 50%;
+height: 50px;
+}
+.c {
+    height: 500px;
+    width: 300px;
+    border: 1px solid black;
+    text-align: center;
+   
+}
+
+.num {
+    text-align: center;
+    line-height: 70px;
+    color: rgb(46, 158, 196);
+    font-size: xx-large;
+    height: 386px;
+}
