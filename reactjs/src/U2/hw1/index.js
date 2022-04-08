@@ -55,6 +55,7 @@ class GithubPage extends Component {
     }
 
     componentDidMount() {
+        // fetch api
         axios
             .get('https://api.github.com/users?per_page=100')
             .then(response => {
@@ -96,6 +97,7 @@ class GithubPage extends Component {
                     </table>
                 </div>
                 <PerPage user={this.state.user} repos={this.state.repos} />
+                {/* <div>details</div> */}
             </div>
         );
     }

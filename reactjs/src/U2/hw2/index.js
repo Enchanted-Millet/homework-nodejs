@@ -35,6 +35,7 @@ class App extends Component {
 
     handleCheckItem = id => {
         const items = [...this.state.items];
+        //  [{}, {completed: true-> false}, {}...]
         const item = findOneById(items, id);
         // const item = findOneById(this.state.items, id);
         if (item) {

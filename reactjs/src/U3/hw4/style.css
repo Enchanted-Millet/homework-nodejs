@@ -1,0 +1,13 @@
+.component-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    row-gap: 1rem;
+}
+
+.component-single {
+    flex-basis: 30%;
+    height: 200px;
+    border: 1px solid steelblue;
+    padding: 1rem;
+}
