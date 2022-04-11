@@ -1,0 +1,9 @@
+.table {
+  margin: 0 auto 20px;
+}
+
+
+.in-prev-month,
+.in-next-month {
+  opacity: 0.5;
+}
