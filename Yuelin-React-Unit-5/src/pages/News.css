@@ -1,0 +1,19 @@
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+
+}
+
+img {
+    width: 100px;
+    height: 100px;
+}
+.newsBox {
+    display: flex;
+    width: 60%;
+    background-color: white;
+}
+
