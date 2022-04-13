@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useParams, useHistory } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const UserDetail = () => {
     const [user, setUser] = useState({});
     const [repos, setRepos] = useState([]);
 
     const params = useParams();
-    const history = useHistory();
     // https://localhost:8000/users/abc
     // params: {login: 'abc'}
 

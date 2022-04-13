@@ -4,9 +4,10 @@ import U2 from './U2';
 import U3 from './U3';
 import U4 from './U4';
 import U5 from './U5';
+import U6 from './U6';
 
 export default class App extends Component {
     render() {
-        return <U5 />;
+        return <U6 />;
     }
 }
