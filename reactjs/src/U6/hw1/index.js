@@ -44,7 +44,7 @@ const TodoList = () => {
     let remain = items.filter(item => !item.completed).length;
 
     return (
-        <div className="todo-container">
+        <div className="todo-container" data-testid="todo-container">
             <h1>Todos - ReactJs</h1>
             <input
                 type="text"
@@ -53,10 +53,15 @@ const TodoList = () => {
                 value={input}
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
+                data-testid="todo-input"
             />
             <div className="flex-box">
                 <span>{remain} remaining</span>
-                <button className="btn btn-outline-secondary" onClick={handleClearAllCompleted}>
+                <button
+                    className="btn btn-outline-secondary"
+                    onClick={handleClearAllCompleted}
+                    data-testid="clear-completed"
+                >
                     Clear Completed Todos
                 </button>
             </div>
