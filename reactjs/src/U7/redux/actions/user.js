@@ -15,10 +15,12 @@ const reposLoaded = repos => ({
     repos
 });
 
-export const fetchAllUsers = () => async (dispatch, getState) => {
-    let response = await fetch('https://api.github.com/users?per_page=100');
-    response = await response.json();
-    dispatch(allUsersLoaded(response));
+export const fetchAllUsers = () => {
+    return async (dispatch, getState) => {
+        let response = await fetch('https://api.github.com/users?per_page=100');
+        response = await response.json();
+        dispatch(allUsersLoaded(response));
+    };
 };
 
 export const fetchOneUser = username => async (dispatch, getState) => {

@@ -7,3 +7,7 @@ export default combineReducers({
     hw4: userReducer,
     hw5: dataReducer
 });
+
+/**
+ * {hw4: [...], hw5: [...]}
+ */

@@ -5,11 +5,10 @@ import loggerMiddleware from './middlewares/logger';
 import rootReducer from './reducers';
 
 export default function configureStore(preloadedState) {
-    const middlewares = [loggerMiddleware, thunkMiddleware];
-    const middlewareEnhancer = applyMiddleware(...middlewares);
+    // const middlewares = [loggerMiddleware, thunkMiddleware];
+    const middlewares = [thunkMiddleware];
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+    const enhancers = composeEnhancers(applyMiddleware(...middlewares), monitorReducerEnhancer);
 
-    const enhancers = [middlewareEnhancer, monitorReducerEnhancer];
-    const composedEnhancers = compose(...enhancers);
-
-    return createStore(rootReducer, preloadedState, composedEnhancers);
+    return createStore(rootReducer, preloadedState, enhancers);
 }
