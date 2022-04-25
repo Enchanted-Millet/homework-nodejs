@@ -1,5 +1,4 @@
 const matrix = n => {
-    // const arr2D = new Array(n).fill(0).map(() => new Array(n).fill(0));
     const results = [];
     for (let i = 0; i < n; i++) {
         results.push([]);
@@ -38,5 +37,40 @@ const matrix = n => {
     return results;
 };
 
-console.log(matrix(4));
+const matrixRecursive = n => {
+    const arr2D = new Array(n).fill(0).map(() => new Array(n).fill(0));
+
+    const recursion = (offset = 0, size = n, counter = 1) => {
+        if (size < 1) return;
+        if (size === 1) {
+            arr2D[offset][offset] = counter;
+            return;
+        }
+
+        // top row
+        for (let i = 0; i < size - 1; i++) {
+            arr2D[0 + offset][i + offset] = counter++;
+        }
+
+        // rightmost column
+        for (let i = 0; i < size - 1; i++) {
+            arr2D[i + offset][n - 1 - offset] = counter++;
+        }
+
+        // bottom row
+        for (let i = size - 1; i > 0; i--) {
+            arr2D[n - 1 - offset][i + offset] = counter++;
+        }
+
+        // leftmost column
+        for (let i = size - 1; i > 0; i--) {
+            arr2D[i + offset][0 + offset] = counter++;
+        }
+
+        recursion(offset + 1, size - 2, counter);
+    };
+
+    recursion();
+};
+
 module.exports = matrix;
