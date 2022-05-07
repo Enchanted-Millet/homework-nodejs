@@ -1,0 +1,14 @@
+.game-table {
+    background: no-repeat url('../public/Crown_and_anchor.png');
+    width: 300px;
+    height: 220px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 0px 50px;
+}
+
+.input-value {
+    width: 30px;
+}
