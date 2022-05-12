@@ -6,7 +6,9 @@ function calcValues(str) {
     const result = {};
     const splits = str.trim().split(' ');
     splits.forEach(letters => {
-        const value = letters.split('').reduce((acc, cur) => (acc += getValue(cur)), 0);
+        const value = letters
+            .split('')
+            .reduce((acc, cur) => acc + getValue(cur), 0);
         if (value in result) {
             result[value].push(letters);
         } else {

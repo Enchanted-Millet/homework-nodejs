@@ -17,15 +17,21 @@ function printAllCards(deck, shuffled = false) {
     let printResult = '';
     deck.forEach(({ num, suit }, idx) => {
         if (shuffled) {
-            printResult += idx % NUM_CARDS === NUM_CARDS - 1 ? `${suit} - ${num}.\n` : `${suit} - ${num}, `;
+            printResult +=
+                idx % NUM_CARDS === NUM_CARDS - 1
+                    ? `${suit} - ${num}.\n`
+                    : `${suit} - ${num}, `;
         } else {
-            printResult += idx % NUM_CARDS === NUM_CARDS - 1 ? `${num} of ${suit}.\n` : `${num} of ${suit}, `;
+            printResult +=
+                idx % NUM_CARDS === NUM_CARDS - 1
+                    ? `${num} of ${suit}.\n`
+                    : `${num} of ${suit}, `;
         }
     });
     console.log(printResult);
 }
 
-function shuffleCards(cards) {
+function shuffleCards(cards = []) {
     let shuffledCards = [...cards];
     for (let i = cards.length; i > 0; i--) {
         const randomIdx = Math.floor(Math.random() * i);
@@ -41,7 +47,9 @@ function shuffleCards(cards) {
 function shuffleDeck(deck) {
     const shuffledDeck = [];
     SUITS.forEach((_, idx) => {
-        shuffledDeck.push(...shuffleCards(deck.slice(NUM_CARDS * idx, NUM_CARDS * (idx + 1))));
+        shuffledDeck.push(
+            ...shuffleCards(deck.slice(NUM_CARDS * idx, NUM_CARDS * (idx + 1)))
+        );
     });
     return shuffledDeck;
 }
@@ -57,7 +65,9 @@ function main() {
     console.log('******* 2 print out - all cards in random number *******');
     printAllCards(shuffledDeck, true);
     const shuffledAllCards = shuffleCards(deck);
-    console.log('******* 3 print out - all cards in random number & suit *******');
+    console.log(
+        '******* 3 print out - all cards in random number & suit *******'
+    );
     printAllCards(shuffledAllCards, true);
 }
 

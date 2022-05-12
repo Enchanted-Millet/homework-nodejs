@@ -21,7 +21,9 @@ Number.isInteger(10);
 
 function sum(...args) {
     if (args.length >= 2) {
-        return args.reduce((acc, cur) => (acc += cur), 0);
+        return args.reduce((acc, cur) => {
+            return acc + cur;
+        }, 0);
     }
     return second => args[0] + second;
 }
