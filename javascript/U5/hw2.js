@@ -46,9 +46,9 @@ function findClosestToFarthest(x, y) {
         )
     }));
     result.sort((a, b) => {
-        return a.dist - b.dist
+        return a.dist - b.dist;
     });
     console.log(result);
 }
 
-findClosestToFarthest(6, 33)
+findClosestToFarthest(6, 33);

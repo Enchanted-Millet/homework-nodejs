@@ -1,7 +1,16 @@
 const matrix = n => {
-    const arr2D = new Array(n).fill(0).map(() => new Array(n).fill(0));
+    // use map to initial 2-D array
+    // const arr2D = new Array(n).fill(0).map(() => new Array(n).fill(0));
 
+    //! Don't use this to initial multi-dimentional array
     // const arr2D = new Array(n).fill(new Array(n).fill(0));
+
+    /*
+    let arr = new Array(3).fill(new Array(3).fill(0)) => [[0,0,0], [0,0,0], [0,0,0]]
+
+    arr[0][1] = 1 => [ [ 0, 1, 0 ], [ 0, 1, 0 ], [ 0, 1, 0 ] ]
+    */
+
     const results = [];
     for (let i = 0; i < n; i++) {
         results.push([]);
@@ -30,7 +39,7 @@ const matrix = n => {
             counter++;
         }
         endRow--;
-        // start column
+        // left column
         for (let i = endRow; i >= startRow; i--) {
             results[i][startColumn] = counter;
             counter++;
