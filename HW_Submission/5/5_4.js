@@ -38,3 +38,19 @@ console.log(sqrt(4))
  console.log(maxOnes([1,1,0,0,1,1,1,1,0,1,0,1,1,0]))
 
  // 3. string representation of numbers from 1 to n. 'FIZZ' for mulplication of 3
+/**
+ * @param {number} x
+ * @return {[]}
+ */
+function maxOnes(x) {
+    let res = []; temp = ''
+    for (let i = 1; i <= x; i++) {
+        if (i%3 === 0 && i%5 ===0) temp = 'FizzBuzz'
+        else if (i%3 === 0 && i%5 !==0) temp = 'Fizz'
+        else if (i%3 !== 0 && i%5 === 0) temp = 'Buzz'
+        else {temp = i}
+        res.push(temp)
+    }
+    return res
+}
+console.log(maxOnes(9))
