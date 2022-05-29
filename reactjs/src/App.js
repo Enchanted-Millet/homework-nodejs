@@ -9,6 +9,6 @@ import U7 from './U7';
 
 export default class App extends Component {
     render() {
-        return <U7 />;
+        return <U2 />;
     }
 }

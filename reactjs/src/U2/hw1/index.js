@@ -13,7 +13,11 @@ const List = ({ id, idx, login, avatar_url, showOneUser }) => {
             </td>
 
             <td>
-                <img className="avatar-small" src={avatar_url} alt={avatar_url} />
+                <img
+                    className="avatar-small"
+                    src={avatar_url}
+                    alt={avatar_url}
+                />
             </td>
         </tr>
     );
@@ -57,7 +61,7 @@ class GithubPage extends Component {
     componentDidMount() {
         // fetch api
         axios
-            .get('https://api.github.com/users?per_page=100')
+            .get('https://api.github.com/users?per_page=20')
             .then(response => {
                 this.setState({ allUser: response.data });
             })
@@ -91,7 +95,12 @@ class GithubPage extends Component {
                         </thead>
                         <tbody>
                             {this.state.allUser.map((item, index) => (
-                                <List key={item.id} {...item} idx={index} showOneUser={this.showOneUser} />
+                                <List
+                                    key={item.id}
+                                    {...item}
+                                    idx={index}
+                                    showOneUser={this.showOneUser}
+                                />
                             ))}
                         </tbody>
                     </table>
