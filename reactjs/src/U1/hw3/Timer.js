@@ -55,7 +55,10 @@ export default class Timer extends Component {
         if (name === 'start') {
             this.setState({ started: true });
             this.intervalId = setInterval(() => {
-                this.setState(prevState => ({ ...prevState, count: prevState.count + 1 }));
+                this.setState(prevState => ({
+                    ...prevState,
+                    count: prevState.count + 1
+                }));
                 // this.setState({ count: this.state.count + 1 });
             }, 1000);
         } else if (name === 'stop') {
@@ -75,7 +78,12 @@ export default class Timer extends Component {
                 <div id="display">{count}</div>
                 <div className="btn-group">
                     {started ? (
-                        <button name="stop" className="btn btn-primary btn-lg" type="button" onClick={this.handleClick}>
+                        <button
+                            name="stop"
+                            className="btn btn-primary btn-lg"
+                            type="button"
+                            onClick={this.handleClick}
+                        >
                             STOP
                         </button>
                     ) : (
@@ -88,7 +96,12 @@ export default class Timer extends Component {
                             START
                         </button>
                     )}
-                    <button name="reset" className="btn btn-primary" type="button" onClick={this.handleClick}>
+                    <button
+                        name="reset"
+                        className="btn btn-primary"
+                        type="button"
+                        onClick={this.handleClick}
+                    >
                         RESET
                     </button>
                 </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.scss';
+import './style.css';
 
 export default function Layout() {
     const buttons = new Array(20).fill(0).map((_, i) => {

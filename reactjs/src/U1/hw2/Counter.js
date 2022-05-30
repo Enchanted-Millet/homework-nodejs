@@ -37,7 +37,7 @@ export default class Counter extends Component {
                     </button>
                     <button
                         name="minus"
-                        className="btn btn-primary"
+                        className="btn btn-primary btn-lg"
                         type="button"
                         onClick={this.handleChange}
                     >
@@ -52,8 +52,8 @@ export default class Counter extends Component {
 // export default function Counter() {
 //     const [countNumber, setCountNumber] = React.useState(0);
 //     return (
-//         <div className="container">
-//             <div id="display">{countNumber}</div>
+//         <div className={styles.container}>
+//             <div id="display" className={styles.display}>{countNumber}</div>
 //             <div className="btn-group">
 //                 <button
 //                     name="plus"

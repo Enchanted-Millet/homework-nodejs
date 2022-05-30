@@ -1,0 +1,87 @@
+<!-- Custom MDX Documentation for U1/hw2/Counter -->
+
+# Class Component
+
+```jsx
+import React, { Component } from 'react';
+import styles from './Counter.module.scss';
+
+export default class Counter extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { countNumber: 0 };
+    }
+
+    handleChange = e => {
+        const { name } = e.target;
+        if (name === 'plus') {
+            this.setState(prevState => ({
+                countNumber: prevState.countNumber + 1
+            }));
+        } else if (name === 'minus') {
+            this.setState(prevState => ({
+                countNumber: prevState.countNumber - 1
+            }));
+        }
+    };
+
+    render() {
+        return (
+            <div className={styles.container}>
+                <div id="display" className={styles.display}>
+                    {this.state.countNumber}
+                </div>
+                <div className="btn-group">
+                    <button
+                        name="plus"
+                        className="btn btn-primary btn-lg"
+                        type="button"
+                        onClick={this.handleChange}
+                    >
+                        +
+                    </button>
+                    <button
+                        name="minus"
+                        className="btn btn-primary"
+                        type="button"
+                        onClick={this.handleChange}
+                    >
+                        -
+                    </button>
+                </div>
+            </div>
+        );
+    }
+}
+```
+
+# Functional Component with React Hooks
+
+```jsx
+export default function Counter() {
+    const [countNumber, setCountNumber] = React.useState(0);
+    return (
+        <div className="container">
+            <div id="display">{countNumber}</div>
+            <div className="btn-group">
+                <button
+                    name="plus"
+                    className="btn btn-primary btn-lg"
+                    type="button"
+                    onClick={() => setCountNumber(countNumber + 1)}
+                >
+                    +
+                </button>
+                <button
+                    name="minus"
+                    className="btn btn-primary"
+                    type="button"
+                    onClick={() => setCountNumber(countNumber - 1)}
+                >
+                    -
+                </button>
+            </div>
+        </div>
+    );
+}
+```
