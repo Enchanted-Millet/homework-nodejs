@@ -1,6 +1,8 @@
-# USTSV JavaScript training - 03/07/2022 - Homework
+# USTSV JavaScript training - Homework
 
-## NodeJS part
+## Javascript Section
+
+## NodeJS Section
 
 I put #3 and #4 together in one folder as the #4 is actually the improvement of #3.
 
@@ -16,5 +18,6 @@ The practice to ExpressJS
 
 The practice to database and RESTful api
 
-## React part
-in construction...
+## React Section
+
+Add storybook for an easy way to demo
