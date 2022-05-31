@@ -23,11 +23,11 @@ class App extends Component {
         // hw 1.3
         // return <ScreenLayout />;
         // hw 2
-        return <Counter />;
+        // return <Counter />;
         // hw 3
         // return <Timer />;
         // hw 4
-        // return <Conversion />;
+        return <Conversion />;
     }
 }
 

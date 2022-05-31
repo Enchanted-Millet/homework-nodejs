@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
-import './style.css';
+import styled from '@emotion/styled';
+
+const Container = styled.div`
+    margin: auto;
+    padding: 0;
+    width: 33%;
+    height: 500px;
+    position: relative;
+`;
+
+const Display = styled.div`
+    width: 100%;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1000%;
+`;
 
 // export default function Timer() {
 //     const [count, setCount] = React.useState(0);
@@ -74,9 +91,13 @@ export default class Timer extends Component {
     render() {
         let { count, started } = this.state;
         return (
-            <div className="container">
-                <div id="display">{count}</div>
-                <div className="btn-group">
+            <Container>
+                <Display>{count}</Display>
+                <div
+                    className="btn-group"
+                    role="group"
+                    style={{ width: '100%' }}
+                >
                     {started ? (
                         <button
                             name="stop"
@@ -98,14 +119,14 @@ export default class Timer extends Component {
                     )}
                     <button
                         name="reset"
-                        className="btn btn-primary"
+                        className="btn btn-primary btn-lg"
                         type="button"
                         onClick={this.handleClick}
                     >
                         RESET
                     </button>
                 </div>
-            </div>
+            </Container>
         );
     }
 }

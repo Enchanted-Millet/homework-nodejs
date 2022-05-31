@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
-import './style.css';
+import styled from '@emotion/styled';
+
+const Container = styled.div`
+    margin: auto;
+    padding: 0;
+    width: 33%;
+    height: 500px;
+    position: relative;
+`;
+
+const Display = styled.div`
+    width: 100%;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1000%;
+`;
 
 export default class Counter extends Component {
     constructor(props) {
@@ -24,9 +41,13 @@ export default class Counter extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div id="display">{this.state.countNumber}</div>
-                <div className="btn-group">
+            <Container>
+                <Display>{this.state.countNumber}</Display>
+                <div
+                    className="btn-group"
+                    role="group"
+                    style={{ width: '100%' }}
+                >
                     <button
                         name="plus"
                         className="btn btn-primary btn-lg"
@@ -44,7 +65,7 @@ export default class Counter extends Component {
                         -
                     </button>
                 </div>
-            </div>
+            </Container>
         );
     }
 }
@@ -52,9 +73,9 @@ export default class Counter extends Component {
 // export default function Counter() {
 //     const [countNumber, setCountNumber] = React.useState(0);
 //     return (
-//         <div className={styles.container}>
-//             <div id="display" className={styles.display}>{countNumber}</div>
-//             <div className="btn-group">
+//         <Container>
+//             <Display>{countNumber}</Display>
+//             <div className="btn-group" role="group">
 //                 <button
 //                     name="plus"
 //                     className="btn btn-primary btn-lg"
@@ -72,6 +93,6 @@ export default class Counter extends Component {
 //                     -
 //                 </button>
 //             </div>
-//         </div>
+//         </Container>
 //     );
 // }

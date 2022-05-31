@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
-import './style.css';
+import styled from '@emotion/styled';
 import InputText from './InputText';
-import classNames from 'classnames';
+
+const StyledForm = styled.form`
+    width: 400px;
+    margin: auto;
+    position: relative;
+`;
+
+const StyledCheckbox = styled.input`
+    border: ${props => (props.errors ? '2px solid red' : 'none')};
+`;
 
 const initialState = {
     username: { value: 'SteveJobs', errors: [] },
@@ -82,16 +91,23 @@ export default class Form extends Component {
     handleChange = name => e => {
         if (Object.keys(this.state).includes(name)) {
             if (name === 'terms') {
-                this.setState({ terms: { ...this.state.terms, checked: !this.state.terms.checked } });
+                this.setState({
+                    terms: {
+                        ...this.state.terms,
+                        checked: !this.state.terms.checked
+                    }
+                });
             } else {
-                this.setState({ [name]: { ...this.state[name], value: e.target.value } });
+                this.setState({
+                    [name]: { ...this.state[name], value: e.target.value }
+                });
             }
         }
     };
 
     handleValidate =
         (name, option = {}) =>
-        e => {
+        _ => {
             const require = this.requirements?.[name];
             if (require) {
                 const field = this.state[name];
@@ -99,12 +115,18 @@ export default class Form extends Component {
                 for (let [name, validator] of Object.entries(require(option))) {
                     if (typeof validator === 'boolean') {
                         if (!validator) {
-                            errors.push({ name, message: getErrorMessage(name, option) });
+                            errors.push({
+                                name,
+                                message: getErrorMessage(name, option)
+                            });
                         }
                     } else {
                         // else it must be Regex
                         if (!validator.test(field.value)) {
-                            errors.push({ name, message: getErrorMessage(name, option) });
+                            errors.push({
+                                name,
+                                message: getErrorMessage(name, option)
+                            });
                         }
                     }
                 }
@@ -132,10 +154,13 @@ export default class Form extends Component {
             })
             .then(hasError => {
                 if (!hasError) {
-                    const result = Object.entries(this.state).reduce((acc, [name, { value }]) => {
-                        acc[name] = value;
-                        return acc;
-                    }, {});
+                    const result = Object.entries(this.state).reduce(
+                        (acc, [name, { value }]) => {
+                            acc[name] = value;
+                            return acc;
+                        },
+                        {}
+                    );
                     alert(JSON.stringify(result));
                 }
             });
@@ -150,12 +175,8 @@ export default class Form extends Component {
     };
 
     render() {
-        let termsClass = classNames('form-check-input', 'me-1', {
-            'check-input-red': this.state.terms.errors.length > 0
-        });
-
         return (
-            <form onSubmit={this.handleSubmit} autoComplete="off">
+            <StyledForm onSubmit={this.handleSubmit} autoComplete="off">
                 <h2>Form Register</h2>
                 <InputText
                     id="username"
@@ -206,25 +227,43 @@ export default class Form extends Component {
                     errors={this.getErrors('devSkills')}
                 />
                 <div className="mb-3">
-                    <input
+                    <StyledCheckbox
                         type="checkbox"
-                        className={termsClass}
+                        className="form-check-input me-1"
                         id="terms"
                         onChange={this.handleChange('terms')}
                         checked={this.state.terms.checked}
+                        errors={this.getErrors('terms')}
                     />
                     Accept Terms
                 </div>
-                <div className="buttons" role="group">
-                    <input id="submit" type="submit" value="Submit" className="btn btn-outline-primary" />
-                    <button type="button" className="btn btn-outline-secondary" onClick={this.handleClear}>
+                <div
+                    className="btn-group"
+                    role="group"
+                    style={{ width: '100%' }}
+                >
+                    <input
+                        id="submit"
+                        type="submit"
+                        value="Submit"
+                        className="btn btn-outline-primary"
+                    />
+                    <button
+                        type="button"
+                        className="btn btn-outline-secondary"
+                        onClick={this.handleClear}
+                    >
                         Clear
                     </button>
-                    <button type="button" className="btn btn-outline-success" onClick={this.handleReset}>
+                    <button
+                        type="button"
+                        className="btn btn-outline-success"
+                        onClick={this.handleReset}
+                    >
                         Reset
                     </button>
                 </div>
-            </form>
+            </StyledForm>
         );
     }
 }
