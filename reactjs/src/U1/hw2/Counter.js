@@ -75,7 +75,7 @@ export default class Counter extends Component {
 //     return (
 //         <Container>
 //             <Display>{countNumber}</Display>
-//             <div className="btn-group" role="group">
+//             <div className="btn-group" role="group" style={{ width: '100%' }}>
 //                 <button
 //                     name="plus"
 //                     className="btn btn-primary btn-lg"
