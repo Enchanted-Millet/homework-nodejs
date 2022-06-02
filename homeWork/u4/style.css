@@ -1,0 +1,61 @@
+.left_key_button_container{
+    width: 55%;
+    display: grid;
+    grid-template-columns:repeat(3, 1fr);
+    border: 1px solid lightgray;
+    
+}
+
+.center_key_button_container{
+    width:5%;
+    
+}
+
+.right_key_button_container{
+    width: 40%;
+   
+    
+}
+
+button {
+width: 60px;
+height:60px;
+
+
+}
+
+
+.key_container{
+    display:flex;
+    
+}
+.app_container{
+    width: 330px;
+    margin-left:40%;
+    
+}
+
+.text_val{
+    border:1px solid lightgray;
+    height:40px;
+    text-align:end;
+    
+    
+}
+
+.counter {
+  padding: 10px;
+}
+.counter-controls {
+    display: inline-block;
+    margin-left: 10px;
+} 
+
+.is-danger {
+    background:red;
+    margin-right: 4px;   
+}
+.is-success {
+    background:green;      
+}
+

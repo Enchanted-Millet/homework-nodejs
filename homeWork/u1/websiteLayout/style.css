@@ -1,0 +1,36 @@
+.appContainer {
+    height: 600px;
+    width: 350px;
+    border: 1px solid lightgray;
+    margin:auto;
+    margin-top: 10%;
+    
+}
+
+.contentContainer {
+    border-top: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    height: 430px;
+    display: grid;
+    grid-template-columns: repeat(4, 0.5fr);
+}
+
+.boxDiv {
+    height: 60px;
+    width: 60px;
+    border: 1px solid lightgray;
+    margin: 10px;
+}
+
+.footerContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 0.5fr);
+    margin-top: -15px;
+}
+
+.footer {
+    height: 60px;
+    width: 60px;
+    border: 1px solid lightgray;
+    margin: 10px;
+}

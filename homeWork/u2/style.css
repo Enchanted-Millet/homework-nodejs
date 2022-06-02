@@ -1,0 +1,20 @@
+.divContainer {
+    display: inline-flex;
+}
+
+.hw2_table_div1, .hw2_table_div2{
+    width:15%;
+}
+.hw2_table_conatiner{
+    display: flex;
+}
+
+.button_container{
+    display: center;
+}
+
+.form_container{
+    width: 30%;
+    margin-left:35%;
+}
+
