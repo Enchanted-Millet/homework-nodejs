@@ -1,9 +1,34 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
-import { GithubPicker } from 'react-color';
-import './style.css';
+import styled from '@emotion/styled';
 
-const Dropdown = ({ components, handleClick }) => {
+const COLORS = [
+    'antiquewhite',
+    'azure',
+    'blueviolet',
+    'chocolate',
+    'cornflowerblue',
+    'crimson',
+    'dodgerblue',
+    'forestgreen',
+    'navy'
+];
+
+const ComponentsContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    row-gap: 1rem;
+`;
+
+const SingleContainer = styled.div`
+    flex-basis: 30%;
+    height: 200px;
+    border: 1px solid steelblue;
+    padding: 1rem;
+    background-color: ${props => props.background};
+`;
+
+const Dropdown = ({ components, handleClick, label }) => {
     return (
         <div className="dropdown">
             <button
@@ -13,13 +38,17 @@ const Dropdown = ({ components, handleClick }) => {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
             >
-                Choose a component
+                {label}
             </button>
             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 {components.map((component, idx) => {
                     return (
                         <li key={idx}>
-                            <a href="#" className="dropdown-item" onClick={handleClick(idx)}>
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <a
+                                className="dropdown-item"
+                                onClick={handleClick(idx)}
+                            >
                                 {component}
                             </a>
                         </li>
@@ -30,13 +59,18 @@ const Dropdown = ({ components, handleClick }) => {
     );
 };
 
-const SingleComponent = ({ idx, component, handleComponentName, background }) => {
+const SingleComponent = ({
+    idx,
+    component,
+    handleComponentName,
+    background
+}) => {
     const handleChange = e => {
         handleComponentName(e.target.value);
     };
 
     return (
-        <div className="component-single" style={{ backgroundColor: background }}>
+        <SingleContainer background={background}>
             <label htmlFor={`${component - idx}`} className="form-label">
                 Component name:
             </label>
@@ -47,13 +81,13 @@ const SingleComponent = ({ idx, component, handleComponentName, background }) =>
                 onChange={handleChange}
                 value={component}
             />
-        </div>
+        </SingleContainer>
     );
 };
 
-const ComponentGroup = ({ components, handleComponentName, background, selectedComponent }) => {
+const ComponentGroup = ({ components, handleComponentName, background }) => {
     return (
-        <div className="component-group">
+        <ComponentsContainer>
             {components.map((component, idx) => {
                 return (
                     <SingleComponent
@@ -65,7 +99,7 @@ const ComponentGroup = ({ components, handleComponentName, background, selectedC
                     />
                 );
             })}
-        </div>
+        </ComponentsContainer>
     );
 };
 
@@ -95,22 +129,49 @@ export default class ColorComponents extends Component {
         this.setState({ selectedComponent: idx });
     };
 
+    handleChooseColor = idx => () => {
+        const background = [...this.state.background];
+        background[this.state.selectedComponent] = COLORS[idx];
+        this.setState({ background });
+    };
+
     render() {
+        const {
+            background,
+            components,
+            selectedComponent: componentId
+        } = this.state;
         return (
-            <div>
-                <Dropdown components={this.state.components} handleClick={this.handleChooseComponent} />
-                <GithubPicker
-                    color={this.state.background}
-                    onChangeComplete={this.handleChangeComplete}
-                    triangle="hide"
-                />
+            <>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-evenly',
+                        margin: '1rem'
+                    }}
+                >
+                    <Dropdown
+                        label={
+                            componentId >= 0
+                                ? `${components[componentId]}`
+                                : 'Choose component'
+                        }
+                        components={components}
+                        handleClick={this.handleChooseComponent}
+                    />
+                    <Dropdown
+                        label="Choose color"
+                        components={COLORS}
+                        handleClick={this.handleChooseColor}
+                    />
+                </div>
                 <ComponentGroup
-                    components={this.state.components}
+                    components={components}
                     handleComponentName={this.handleComponentName}
-                    background={this.state.background}
-                    selectedComponent={this.state.selectedComponent}
+                    background={background}
+                    selectedComponent={componentId}
                 />
-            </div>
+            </>
         );
     }
 }
