@@ -41,16 +41,26 @@ export default function Calculator() {
             case '=':
                 if (operator && input) {
                     const math = (a, b, sign) =>
-                        sign === '+' ? a + b : sign === '-' ? a - b : sign === '×' ? a * b : a / b;
+                        sign === '+'
+                            ? a + b
+                            : sign === '-'
+                            ? a - b
+                            : sign === '×'
+                            ? a * b
+                            : a / b;
                     setResult(
-                        input === '0' && operator === '÷' ? 'Cant divide with zero' : math(+result, +input, operator)
+                        input === '0' && operator === '÷'
+                            ? 'Cant divide with zero'
+                            : math(+result, +input, operator)
                     );
                     setOperator('');
                     setInput(0);
                 }
                 break;
             case '.':
-                setInput(input.toString().includes('.') ? input : input + value);
+                setInput(
+                    input.toString().includes('.') ? input : input + value
+                );
                 break;
             default:
                 if (String(input).length < 16) {
@@ -73,7 +83,12 @@ export default function Calculator() {
             <Buttons>
                 {buttons.flat().map((btn, i) => {
                     return (
-                        <Button key={i} value={btn} className={btn === '=' ? 'equals' : ''} onClick={onClick(btn)} />
+                        <Button
+                            key={i}
+                            value={btn}
+                            className={btn === '=' ? 'equals' : ''}
+                            onClick={onClick(btn)}
+                        />
                     );
                 })}
             </Buttons>

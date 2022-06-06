@@ -1,0 +1,29 @@
+.calendar-day {
+    text-align: center;
+}
+
+.calendar-header {
+    text-align: center;
+    margin: auto;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1.5em;
+}
+
+.month-picker-table {
+    margin: auto;
+}
+
+.today {
+    position: relative;
+}
+
+.today::after {
+    content: '';
+    border: 2px solid steelblue;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 5px;
+    left: 7px;
+}
