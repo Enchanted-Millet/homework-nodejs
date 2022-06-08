@@ -7,10 +7,16 @@
     margin: auto;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 1.5em;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .month-picker-table {
-    margin: auto;
+    width: 100%;
+}
+
+.year-picker-table {
+    width: 100%;
 }
 
 .today {
@@ -25,5 +31,5 @@
     height: 30px;
     position: absolute;
     top: 5px;
-    left: 7px;
+    left: 10px;
 }
