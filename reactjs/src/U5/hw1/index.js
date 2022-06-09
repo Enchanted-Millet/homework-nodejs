@@ -1,7 +1,7 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import News from './News';
-import Photos from './Photos';
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import News from './News'
+import Photos from './Photos'
 
 const StaticNews = () => {
     return (
@@ -11,7 +11,7 @@ const StaticNews = () => {
                 <Route path="/photo" element={<Photos />} />
             </Routes>
         </BrowserRouter>
-    );
-};
+    )
+}
 
-export default StaticNews;
+export default StaticNews

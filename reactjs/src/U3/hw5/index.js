@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import styled from '@emotion/styled';
+import React, { Component } from 'react'
+import styled from '@emotion/styled'
 
 const COLORS = [
     'antiquewhite',
@@ -11,14 +11,14 @@ const COLORS = [
     'dodgerblue',
     'forestgreen',
     'navy'
-];
+]
 
 const ComponentsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     row-gap: 1rem;
-`;
+`
 
 const SingleContainer = styled.div`
     flex-basis: 30%;
@@ -26,7 +26,7 @@ const SingleContainer = styled.div`
     border: 1px solid steelblue;
     padding: 1rem;
     background-color: ${props => props.background};
-`;
+`
 
 const Dropdown = ({ components, handleClick, label }) => {
     return (
@@ -52,12 +52,12 @@ const Dropdown = ({ components, handleClick, label }) => {
                                 {component}
                             </a>
                         </li>
-                    );
+                    )
                 })}
             </ul>
         </div>
-    );
-};
+    )
+}
 
 const SingleComponent = ({
     idx,
@@ -66,8 +66,8 @@ const SingleComponent = ({
     background
 }) => {
     const handleChange = e => {
-        handleComponentName(e.target.value);
-    };
+        handleComponentName(e.target.value)
+    }
 
     return (
         <SingleContainer background={background}>
@@ -82,8 +82,8 @@ const SingleComponent = ({
                 value={component}
             />
         </SingleContainer>
-    );
-};
+    )
+}
 
 const ComponentGroup = ({ components, handleComponentName, background }) => {
     return (
@@ -97,50 +97,41 @@ const ComponentGroup = ({ components, handleComponentName, background }) => {
                         background={background[idx]}
                         handleComponentName={handleComponentName(idx)}
                     />
-                );
+                )
             })}
         </ComponentsContainer>
-    );
-};
+    )
+}
 
 export default class ColorComponents extends Component {
     state = {
         background: ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff'],
         components: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth'],
         selectedComponent: -1
-    };
-
-    handleChangeComplete = color => {
-        const selectedIdx = this.state.selectedComponent;
-        if (selectedIdx >= 0) {
-            const { background } = this.state;
-            background[selectedIdx] = color.hex;
-            this.setState({ background });
-        }
-    };
+    }
 
     handleComponentName = idx => value => {
-        const components = [...this.state.components];
-        components[idx] = value;
-        this.setState({ components });
-    };
+        const components = [...this.state.components]
+        components[idx] = value
+        this.setState({ components })
+    }
 
     handleChooseComponent = idx => () => {
-        this.setState({ selectedComponent: idx });
-    };
+        this.setState({ selectedComponent: idx })
+    }
 
     handleChooseColor = idx => () => {
-        const background = [...this.state.background];
-        background[this.state.selectedComponent] = COLORS[idx];
-        this.setState({ background });
-    };
+        const background = [...this.state.background]
+        background[this.state.selectedComponent] = COLORS[idx]
+        this.setState({ background })
+    }
 
     render() {
         const {
             background,
             components,
             selectedComponent: componentId
-        } = this.state;
+        } = this.state
         return (
             <>
                 <div
@@ -172,6 +163,6 @@ export default class ColorComponents extends Component {
                     selectedComponent={componentId}
                 />
             </>
-        );
+        )
     }
 }
