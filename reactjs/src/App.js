@@ -1,14 +1,18 @@
-import React, { Component } from 'react';
-import U1 from './U1';
-import U2 from './U2';
-import U3 from './U3';
-import U4 from './U4';
-import U5 from './U5';
-import U6 from './U6';
-import U7 from './U7';
+import React, { Component } from 'react'
+const U1 = React.lazy(() => import('./U1'))
+const U2 = React.lazy(() => import('./U2'))
+const U3 = React.lazy(() => import('./U3'))
+const U4 = React.lazy(() => import('./U4'))
+const U5 = React.lazy(() => import('./U5'))
+// const U6 = React.lazy(() => import('./U6'));
+// const U7 = React.lazy(() => import('./U7'));
 
 export default class App extends Component {
     render() {
-        return <U7 />;
+        return (
+            <React.Suspense fallback={<div>Loading...</div>}>
+                <U5 />
+            </React.Suspense>
+        )
     }
 }

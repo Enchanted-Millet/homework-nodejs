@@ -1,6 +1,17 @@
 import React from 'react';
+import styled from '@emotion/styled';
 
-export default function InputText({ id, title, type = 'text', errors = [], ...props }) {
+const ErrorMessage = styled.div`
+    color: crimson;
+`;
+
+export default function InputText({
+    id,
+    title,
+    type = 'text',
+    errors = [],
+    ...props
+}) {
     return (
         <div className="mb-3">
             <label htmlFor={id} className="form-label">
@@ -10,9 +21,9 @@ export default function InputText({ id, title, type = 'text', errors = [], ...pr
             {errors.length > 0 &&
                 errors.map(error => {
                     return (
-                        <div key={error.name} className="error-message">
+                        <ErrorMessage key={error.name}>
                             {error.message}
-                        </div>
+                        </ErrorMessage>
                     );
                 })}
         </div>

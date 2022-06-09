@@ -5,8 +5,8 @@ import Calendar from './hw3';
 export default class U4 extends Component {
     render() {
         return (
-            <Calculator />
-            // <Calendar />
+            // <Calculator />
+            <Calendar />
         );
     }
 }

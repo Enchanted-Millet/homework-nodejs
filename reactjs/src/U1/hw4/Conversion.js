@@ -4,6 +4,9 @@ const conversion = num => {
     if (num === 0) {
         return '' + num;
     }
+    if (num > 10 && num < 20) {
+        return '' + num + 'th';
+    }
     switch (num % 10) {
         case 1:
             return num + 'st';

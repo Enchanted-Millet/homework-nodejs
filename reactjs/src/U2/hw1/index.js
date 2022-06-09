@@ -1,8 +1,73 @@
 import React, { Component } from 'react';
-import './style.css';
+import styled from '@emotion/styled';
 import axios from 'axios';
 
-const List = ({ id, idx, login, avatar_url, showOneUser }) => {
+const Container = styled.div`
+    margin: 0;
+    padding: 0;
+    display: flex;
+    border: none;
+    width: 100%;
+`;
+
+const List = styled.div`
+    width: 40%;
+    height: 100vh;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    table {
+        text-align: center;
+        margin: auto;
+
+        th {
+            font-size: 1.2rem;
+        }
+
+        th,
+        td {
+            border-bottom: 1px solid #ddd;
+            padding: 2px 10px;
+        }
+    }
+
+    .avatar-small {
+        width: 50px;
+        height: 50px;
+    }
+
+    .name-anchor {
+        background: none;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+`;
+
+const DetailContainer = styled.div`
+    padding: 0 0 0 10px;
+    height: 100vh;
+    overflow: scroll;
+    width: 62%;
+
+    img {
+        max-width: 300px;
+    }
+
+    ul {
+        list-style: none;
+        li:hover {
+            font-size: 1.2rem;
+            transition: font-size 0.3s;
+        }
+    }
+`;
+
+const ItemList = ({ id, idx, login, avatar_url, showOneUser }) => {
     return (
         <tr>
             <td>{id}</td>
@@ -13,16 +78,20 @@ const List = ({ id, idx, login, avatar_url, showOneUser }) => {
             </td>
 
             <td>
-                <img className="avatar-small" src={avatar_url} alt={avatar_url} />
+                <img
+                    className="avatar-small"
+                    src={avatar_url}
+                    alt={avatar_url}
+                />
             </td>
         </tr>
     );
 };
 
-const PerPage = props => {
+const Detail = props => {
     if ('name' in props.user) {
         return (
-            <div className="one">
+            <DetailContainer>
                 <img src={props.user.avatar_url} alt={props.user.lgoin} />
                 <p>Name: {props.user.name}</p>
                 <p>Location: {props.user.location}</p>
@@ -37,7 +106,7 @@ const PerPage = props => {
                         );
                     })}
                 </ul>
-            </div>
+            </DetailContainer>
         );
     } else {
         return null;
@@ -57,7 +126,7 @@ class GithubPage extends Component {
     componentDidMount() {
         // fetch api
         axios
-            .get('https://api.github.com/users?per_page=100')
+            .get('https://api.github.com/users?per_page=20')
             .then(response => {
                 this.setState({ allUser: response.data });
             })
@@ -79,8 +148,8 @@ class GithubPage extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div className="list">
+            <Container>
+                <List>
                     <table>
                         <thead>
                             <tr>
@@ -91,14 +160,18 @@ class GithubPage extends Component {
                         </thead>
                         <tbody>
                             {this.state.allUser.map((item, index) => (
-                                <List key={item.id} {...item} idx={index} showOneUser={this.showOneUser} />
+                                <ItemList
+                                    key={item.id}
+                                    {...item}
+                                    idx={index}
+                                    showOneUser={this.showOneUser}
+                                />
                             ))}
                         </tbody>
                     </table>
-                </div>
-                <PerPage user={this.state.user} repos={this.state.repos} />
-                {/* <div>details</div> */}
-            </div>
+                </List>
+                <Detail user={this.state.user} repos={this.state.repos} />
+            </Container>
         );
     }
 }

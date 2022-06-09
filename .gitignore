@@ -3,3 +3,5 @@
 Thumbs.db
 .idea
 .vscode
+build-storybook.log
+storybook-static/

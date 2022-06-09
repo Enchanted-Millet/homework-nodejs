@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import './style.css';
+import styled from '@emotion/styled';
+
+const Container = styled.div`
+    width: 400px;
+    margin: auto;
+    display: block;
+`;
 
 export default class Login extends Component {
     constructor(props) {
         super(props);
         const today = new Date();
-        const yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+        const yesterday = new Date(
+            new Date().setDate(new Date().getDate() - 1)
+        );
         const tomorrow = new Date(new Date().setDate(new Date().getDate() + 1));
         this.users = {
             today: {
@@ -14,11 +22,17 @@ export default class Login extends Component {
             },
             yesterday: {
                 username: 'yesterday',
-                password: yesterday.toISOString().split('T')[0].replaceAll('-', '')
+                password: yesterday
+                    .toISOString()
+                    .split('T')[0]
+                    .replaceAll('-', '')
             },
             tomorrow: {
                 username: 'tomorrow',
-                password: tomorrow.toISOString().split('T')[0].replaceAll('-', '')
+                password: tomorrow
+                    .toISOString()
+                    .split('T')[0]
+                    .replaceAll('-', '')
             }
         };
 
@@ -48,7 +62,10 @@ export default class Login extends Component {
         if (this.checkUser()) {
             this.setState({ loggedIn: true });
         } else {
-            this.setState({ loggedIn: false, error: 'The username or password is wrong!' });
+            this.setState({
+                loggedIn: false,
+                error: 'The username or password is wrong!'
+            });
         }
     };
 
@@ -63,9 +80,14 @@ export default class Login extends Component {
     };
 
     render() {
-        const { username, password, loggedIn, error: errorMessage } = this.state;
+        const {
+            username,
+            password,
+            loggedIn,
+            error: errorMessage
+        } = this.state;
         return (
-            <div className="container">
+            <Container>
                 {!loggedIn ? (
                     <>
                         <div className="mb-3">
@@ -96,7 +118,11 @@ export default class Login extends Component {
                         </div>
                         <div style={{ color: 'red' }}>{errorMessage}</div>
                         <div>
-                            <button type="button" className="btn btn-primary" onClick={this.handleLogIn}>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={this.handleLogIn}
+                            >
                                 Log in
                             </button>
                         </div>
@@ -104,12 +130,16 @@ export default class Login extends Component {
                 ) : (
                     <>
                         <div>Welcome to my system!</div>
-                        <button type="button" className="btn btn-primary" onClick={this.handleLogOut}>
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={this.handleLogOut}
+                        >
                             Log out
                         </button>
                     </>
                 )}
-            </div>
+            </Container>
         );
     }
 }

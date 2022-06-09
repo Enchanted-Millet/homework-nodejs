@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
-import './style.css';
+import styled from '@emotion/styled';
+
+const Container = styled.div`
+    margin: auto;
+    padding: 0;
+    width: 33%;
+    height: 500px;
+    position: relative;
+`;
+
+const Display = styled.div`
+    width: 100%;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1000%;
+`;
 
 // export default function Timer() {
 //     const [count, setCount] = React.useState(0);
@@ -55,7 +72,10 @@ export default class Timer extends Component {
         if (name === 'start') {
             this.setState({ started: true });
             this.intervalId = setInterval(() => {
-                this.setState(prevState => ({ ...prevState, count: prevState.count + 1 }));
+                this.setState(prevState => ({
+                    ...prevState,
+                    count: prevState.count + 1
+                }));
                 // this.setState({ count: this.state.count + 1 });
             }, 1000);
         } else if (name === 'stop') {
@@ -71,11 +91,20 @@ export default class Timer extends Component {
     render() {
         let { count, started } = this.state;
         return (
-            <div className="container">
-                <div id="display">{count}</div>
-                <div className="btn-group">
+            <Container>
+                <Display>{count}</Display>
+                <div
+                    className="btn-group"
+                    role="group"
+                    style={{ width: '100%' }}
+                >
                     {started ? (
-                        <button name="stop" className="btn btn-primary btn-lg" type="button" onClick={this.handleClick}>
+                        <button
+                            name="stop"
+                            className="btn btn-primary btn-lg"
+                            type="button"
+                            onClick={this.handleClick}
+                        >
                             STOP
                         </button>
                     ) : (
@@ -88,11 +117,16 @@ export default class Timer extends Component {
                             START
                         </button>
                     )}
-                    <button name="reset" className="btn btn-primary" type="button" onClick={this.handleClick}>
+                    <button
+                        name="reset"
+                        className="btn btn-primary btn-lg"
+                        type="button"
+                        onClick={this.handleClick}
+                    >
                         RESET
                     </button>
                 </div>
-            </div>
+            </Container>
         );
     }
 }

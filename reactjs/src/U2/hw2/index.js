@@ -1,8 +1,23 @@
 import React, { Component } from 'react';
+import styled from '@emotion/styled';
 import List from './List';
-import './style.css';
 
 let ID = 1;
+
+const Container = styled.div`
+    width: 400px;
+    margin: auto;
+`;
+
+const RemainingBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+
+    span {
+        padding: 7px 0;
+    }
+`;
 
 const findOneById = (items, id) => {
     return items.find(item => item.id === id);
@@ -47,18 +62,22 @@ class App extends Component {
     };
 
     handleClearAllCompleted = () => {
-        this.setState({ items: this.state.items.map(item => ({ ...item, completed: false })) });
+        this.setState({
+            items: this.state.items.map(item => ({ ...item, completed: false }))
+        });
     };
 
     handleMarkAllDone = () => {
-        this.setState({ items: this.state.items.map(item => ({ ...item, completed: true })) });
+        this.setState({
+            items: this.state.items.map(item => ({ ...item, completed: true }))
+        });
     };
 
     render() {
         let { items } = this.state;
         let remain = items.filter(item => !item.completed).length;
         return (
-            <div className="todo-container">
+            <Container>
                 <h1>Todos - ReactJs</h1>
                 <input
                     type="text"
@@ -68,12 +87,15 @@ class App extends Component {
                     onChange={this.handleInputChange}
                     onKeyDown={this.handleKeyDown}
                 />
-                <div className="flex-box">
+                <RemainingBox>
                     <span>{remain} remaining</span>
-                    <button className="btn btn-outline-secondary" onClick={this.handleClearAllCompleted}>
+                    <button
+                        className="btn btn-outline-secondary"
+                        onClick={this.handleClearAllCompleted}
+                    >
                         Clear Completed Todos
                     </button>
-                </div>
+                </RemainingBox>
                 <div>
                     <List
                         items={items}
@@ -81,7 +103,7 @@ class App extends Component {
                         handleMarkAllDone={this.handleMarkAllDone}
                     />
                 </div>
-            </div>
+            </Container>
         );
     }
 }
