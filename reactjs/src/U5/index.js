@@ -6,9 +6,9 @@ import TrafficLightSimulator from './hw4'
 
 export default function U5() {
     return (
-        // <StaticNews />
+        <StaticNews />
         // <GitHubPage />
         // <ColorComponent />
-        <TrafficLightSimulator />
+        // <TrafficLightSimulator />
     )
 }

@@ -81,6 +81,7 @@ const TrafficLightSimulatorRouter = () => {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/" exact element={<TrafficLightSimulator />} />
                 <Route path="/:status" element={<TrafficLightSimulator />} />
                 {/*<Route*/}
                 {/*    path="/red"*/}

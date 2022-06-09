@@ -1,5 +1,6 @@
-import React from 'react';
-import NavBar from './NavBar';
+import React from 'react'
+import NavBar from './NavBar'
+import styled from '@emotion/styled'
 
 const photos = [
     {
@@ -34,19 +35,34 @@ const photos = [
         src: 'https://www.gannett-cdn.com/presto/2018/10/25/USAT/cdda9207-f7d8-443b-bf1c-78648063e409-AP_California_Daily_Life.JPG',
         alt: 'yosemite-8'
     }
-];
+]
+
+const ImageWrapper = styled.div`
+    width: 800px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 10px;
+`
+
+const Img = styled.img`
+    border-radius: 10px;
+    box-shadow: #888888 3px 3px 5px;
+    height: 225px;
+`
 
 const Photos = () => {
+    const ImageList = () =>
+        photos.map(({ src, alt }, idx) => <Img key={idx} src={src} alt={alt} />)
     return (
         <>
             <NavBar />
-            <div className="image-wrapper">
-                {photos.map(({ src, alt }, idx) => {
-                    return <img key={idx} src={src} alt={alt} className="single-img" />;
-                })}
-            </div>
+            <ImageWrapper>
+                <ImageList />
+            </ImageWrapper>
         </>
-    );
-};
+    )
+}
 
-export default Photos;
+export default Photos
