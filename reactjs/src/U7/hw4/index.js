@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAllUsers, fetchOneUser, fetchRepos } from '../redux/actions/user';
-import './style.css';
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAllUsers, fetchOneUser, fetchRepos } from '../redux/actions/user'
+import './style.css'
 
 const List = ({ id, login, avatar_url, showOneUser }) => {
     return (
@@ -14,11 +14,15 @@ const List = ({ id, login, avatar_url, showOneUser }) => {
             </td>
 
             <td>
-                <img className="avatar-small" src={avatar_url} alt={avatar_url} />
+                <img
+                    className="avatar-small"
+                    src={avatar_url}
+                    alt={avatar_url}
+                />
             </td>
         </tr>
-    );
-};
+    )
+}
 
 const PerPage = props => {
     if ('name' in props.user) {
@@ -35,69 +39,44 @@ const PerPage = props => {
                                 <a href={repo.html_url}>{repo.name}</a>
                                 <p>{repo.description}</p>
                             </li>
-                        );
+                        )
                     })}
                 </ul>
             </div>
-        );
+        )
     } else {
-        return null;
+        return null
     }
-};
+}
 
 const GithubPage = () => {
-    // const [allUsers, setAllUsers] = useState([]);
-    // const [user, setUser] = useState({});
-    // const [repos, setRepos] = useState([]);
+    const { allUsers, currentUser, repos } = useSelector(state => state.hw4)
+    const [searchInput, setSearchInput] = useState('')
 
-    const { allUsers, currentUser, repos } = useSelector(state => state.hw4);
-    const [searchInput, setSearchInput] = useState('');
-
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        // axios
-        //     .get('https://api.github.com/users?per_page=100')
-        //     .then(response => {
-        //         setAllUsers(response.data);
-        //     })
-        //     .catch(err => {
-        //         console.log(err);
-        //     });
-
-        dispatch(fetchAllUsers());
-    }, []);
+        dispatch(fetchAllUsers())
+    }, [])
 
     const getOneUserDetails = login => {
-        dispatch(fetchOneUser(login));
-        dispatch(fetchRepos(login));
-    };
+        dispatch(fetchOneUser(login))
+        dispatch(fetchRepos(login))
+    }
 
     const showOneUser = login => () => {
-        // axios
-        //     .get(allUsers[id].url)
-        //     .then(res => setUser(res.data))
-        //     .catch(err => console.log(err));
-        // dispatch(fetchOneUser(login));
-
-        // axios
-        //     .get(allUsers[id].repos_url)
-        //     .then(res => setRepos(res.data))
-        //     .catch(err => console.log(err));
-        // dispatch(fetchRepos(login));
-
-        getOneUserDetails(login);
-    };
+        getOneUserDetails(login)
+    }
 
     const handleSubmit = e => {
-        e.preventDefault();
-        setSearchInput('');
-        getOneUserDetails(searchInput);
-    };
+        e.preventDefault()
+        setSearchInput('')
+        getOneUserDetails(searchInput)
+    }
 
     const handleChange = e => {
-        setSearchInput(e.target.value);
-    };
+        setSearchInput(e.target.value)
+    }
 
     return (
         <>
@@ -124,7 +103,12 @@ const GithubPage = () => {
                         </thead>
                         <tbody>
                             {allUsers.map((user, index) => (
-                                <List key={user.id} {...user} idx={index} showOneUser={showOneUser} />
+                                <List
+                                    key={user.id}
+                                    {...user}
+                                    idx={index}
+                                    showOneUser={showOneUser}
+                                />
                             ))}
                         </tbody>
                     </table>
@@ -132,7 +116,7 @@ const GithubPage = () => {
                 <PerPage user={currentUser} repos={repos} />
             </div>
         </>
-    );
-};
+    )
+}
 
-export default GithubPage;
+export default GithubPage

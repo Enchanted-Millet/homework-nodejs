@@ -12,8 +12,7 @@ function sleep(milliseconds) {
 }
 
 app.get('/getJson', async (req, res) => {
-    console.log('inside getJson');
-    await sleep(2000);
+    await sleep(Math.floor(Math.random() * 5000));
     const person = [
         { id: 10, firstName: 'John', lastName: 'Doe' },
         { id: 5, firstName: 'Jack', lastName: 'Doe' },
@@ -24,7 +23,7 @@ app.get('/getJson', async (req, res) => {
 });
 
 app.get('/getXml', async (req, res) => {
-    await sleep(3000);
+    await sleep(Math.floor(Math.random() * 5000));
     const xmlString =
         '<persons><person><id>3</id><firstName>Jen</firstName><lastName>Doe</lastName></person> <person><id>6</id><firstName>Stephanie</firstName><lastName>Joe</lastName></person> <person><id>1</id><firstName>Victoria</firstName><lastName>Doe</lastName></person></persons>';
     parseString(xmlString, (err, result) => {

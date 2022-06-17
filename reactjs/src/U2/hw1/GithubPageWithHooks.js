@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import styled from '@emotion/styled';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import styled from '@emotion/styled'
+import axios from 'axios'
 
 const Container = styled.div`
     margin: 0;
@@ -8,7 +8,7 @@ const Container = styled.div`
     display: flex;
     border: none;
     width: 100%;
-`;
+`
 
 const List = styled.div`
     width: 40%;
@@ -46,7 +46,7 @@ const List = styled.div`
         font-size: 1rem;
         cursor: pointer;
     }
-`;
+`
 
 const DetailContainer = styled.div`
     padding: 0 0 0 10px;
@@ -65,7 +65,7 @@ const DetailContainer = styled.div`
             transition: font-size 0.3s;
         }
     }
-`;
+`
 
 const ItemList = ({ id, idx, login, avatar_url, showOneUser }) => {
     return (
@@ -85,8 +85,10 @@ const ItemList = ({ id, idx, login, avatar_url, showOneUser }) => {
                 />
             </td>
         </tr>
-    );
-};
+    )
+}
+
+// UI = F(x)
 
 const Detail = props => {
     if ('name' in props.user) {
@@ -103,43 +105,48 @@ const Detail = props => {
                                 <a href={repo.html_url}>{repo.name}</a>
                                 <p>{repo.description}</p>
                             </li>
-                        );
+                        )
                     })}
                 </ul>
             </DetailContainer>
-        );
+        )
     } else {
-        return null;
+        return null
     }
-};
+}
 
 export default function GithubPage() {
-    const [allUser, setAllUser] = useState([]);
-    const [user, setUser] = useState({});
-    const [repos, setRepos] = useState([]);
+    const [allUser, setAllUser] = useState([])
+    const [user, setUser] = useState({})
+    const [repos, setRepos] = useState([])
+    // const [state, setState] = useState({
+    //     allUser: [],
+    //     user: {},
+    //     repos: []
+    // }
 
     useEffect(() => {
         // fetch api
         axios
             .get('https://api.github.com/users?per_page=20')
             .then(response => {
-                setAllUser(response.data);
+                setAllUser(response.data)
             })
             .catch(err => {
-                console.log(err);
-            });
-    }, []);
+                console.log(err)
+            })
+    }, []) // -> componentDidMount()
 
     const showOneUser = id => () => {
         axios
             .get(allUser[id].url)
             .then(res => setUser(res.data))
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
         axios
             .get(allUser[id].repos_url)
             .then(res => setRepos(res.data))
-            .catch(err => console.log(err));
-    };
+            .catch(err => console.log(err))
+    }
 
     return (
         <Container>
@@ -166,5 +173,5 @@ export default function GithubPage() {
             </List>
             <Detail user={user} repos={repos} />
         </Container>
-    );
+    )
 }
