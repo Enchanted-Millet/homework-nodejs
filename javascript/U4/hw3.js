@@ -35,13 +35,13 @@ class Triangle extends TwoDShape {
 var my = new Triangle(3, 5, 10);
 
 // inheritance and local properties
-console.log(my.constructor)
+console.log(my.constructor);
 console.log(Object.getPrototypeOf(my));
-console.log(Object.getOwnPropertyNames(my))
+console.log(Object.getOwnPropertyNames(my));
 
 // access local property
-console.log("my.name = " + my.name);
-console.log("my.getArea() = " + my.getArea());
+console.log('my.name = ' + my.name);
+console.log('my.getArea() = ' + my.getArea());
 
 // access method in parent
 console.log(my.toString2());
@@ -53,15 +53,15 @@ console.log(my.toString1());
 var two = new TwoDShape(10);
 
 // inheritance and local properties
-console.log(two.constructor)
+console.log(two.constructor);
 console.log(Object.getPrototypeOf(two));
-console.log(Object.getOwnPropertyNames(two))
+console.log(Object.getOwnPropertyNames(two));
 
 // access local property
-console.log("two.name = " + two.name);
+console.log('two.name = ' + two.name);
 
 // access method in parent
-console.log("two.toString1() = " + two.toString1());
+console.log('two.toString1() = ' + two.toString1());
 
 // access method in subclass - never happen
-console.log("two.getArea() = " + two.getArea());
+console.log('two.getArea() = ' + two.getArea());

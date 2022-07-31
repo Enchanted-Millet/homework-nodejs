@@ -44,20 +44,20 @@
 // }
 
 // ES6 / 2015
-// class Singleton {
-//     constructor() {
-//         if (Singleton.instance instanceof Singleton) {
-//             return Singleton.instance;
-//         }
-//         this.obj = {
-//             version: Math.floor(Math.random() * 2000)
-//         };
-//         Singleton.instance = this;
-//     }
-//     get(key) {
-//         return this.obj[key];
-//     }
-// }
+class Singleton {
+    constructor() {
+        if (Singleton.instance instanceof Singleton) {
+            return Singleton.instance;
+        }
+        this.obj = {
+            version: Math.floor(Math.random() * 2000)
+        };
+        Singleton.instance = this;
+    }
+    get(key) {
+        return this.obj[key];
+    }
+}
 
 const a = new Singleton();
 const b = new Singleton();

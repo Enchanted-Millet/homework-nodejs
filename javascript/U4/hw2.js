@@ -9,14 +9,15 @@ class Shape {
     }
 }
 
-// class Triangle extends Shape {
-//     constructor(a, b, c) {
-//         super('Triangle');
-//         this.a = a;
-//         this.b = b;
-//         this.c = c;
-//     }
-// }
+class Triangle extends Shape {
+    constructor(a, b, c) {
+        super('Triangle');
+        // -> this.type = 'Trianle';
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+}
 
 Triangle.prototype.getPerimeter = function () {
     return this.a + this.b + this.c;
@@ -34,10 +35,12 @@ var t = new Triangle(1, 2, 3);
 // console.log('\n');
 
 for (let p in t) {
+    // get all properties of t including inherited properties (from prototype)
     // console.log(p);
+
     if (t.hasOwnProperty(p)) console.log(p);
 }
-console.log(Object.getOwnPropertyNames(t));
+// console.log(Object.getOwnPropertyNames(t));
 
 // 2
 function shuffle(arr) {
