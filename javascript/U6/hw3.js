@@ -1,7 +1,11 @@
 function reverseInt(num) {
     if (num <= 2 ** 32) {
         return num > 0
-            ? +('' + num).split('').reduce((acc, cur) => cur + acc, '')
+            ? Number(
+                  String(num)
+                      .split('')
+                      .reduce((acc, cur) => cur + acc, '')
+              )
             : -('' + Math.abs(num))
                   .split('')
                   .reduce((acc, cur) => cur + acc, '');
@@ -15,4 +19,6 @@ try {
     console.log(result);
 } catch (error) {
     console.log(error);
+} finally {
+    console.log('done');
 }
