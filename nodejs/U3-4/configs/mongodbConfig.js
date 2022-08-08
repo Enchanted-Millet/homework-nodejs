@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // TODO: change to your own mongodb connect url
-mongoose.connect('<your_own_mongodb_connection_url>', {
+mongoose.connect(process.env.MONGODB_LINK, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
