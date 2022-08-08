@@ -1,6 +1,5 @@
 const http = require('http');
 const matrix = require('./matrix');
-// const fs = require('fs');
 
 function prettyPrintMatrix(matrix) {
     let prettyLog = '';
@@ -16,14 +15,18 @@ function prettyPrintMatrix(matrix) {
 
 const server = http.createServer((req, res) => {
     const url = new URL(req.url, 'http://localhost:8000');
-    // console.log('🚀 ~ file: hw1.js ~ line 19 ~ server ~ matches', url);
+    console.log(url);
     if (req.method === 'GET') {
-        if (url.pathname.search(/\/matrix\/\d+/) >= 0) {
+        if (url.pathname === '/') {
+            console.log('step 2');
+            res.end(prettyPrintMatrix(matrix(5)));
+        } else if (url.pathname.search(/\/matrix\/\d+/) >= 0) {
+            console.log('step 3');
             const num = url.pathname.match(/\/\d+/g);
-            console.log('🚀 ~ file: hw1.js ~ line 23 ~ server ~ num', num);
             const result = matrix(+num[0].substring(1));
             res.end(prettyPrintMatrix(result));
         } else if (url.pathname.search(/\/matrix\.html/) >= 0) {
+            console.log('step 4');
             res.writeHead(200, { 'Content-Type': 'text/html' });
             const html = `
                 <html lang="en">
