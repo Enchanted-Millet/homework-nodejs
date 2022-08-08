@@ -1,23 +1,26 @@
-function getProperties(obj, isFunction = false) {
-    // if (isFunction) {
-    //     return Object.keys(obj)
-    //         .filter(key => obj[key] instanceof Function)
-    //         .join(', ');
-    // }
-    // return Object.keys(obj).join(', ');
+// 1
+var student = {
+    name: 'David Ray',
+    sclass: 'VI',
+    rollno: 12
+};
+console.log(Object.keys(student));
 
-    const keys = [];
-    // for (let key in obj) {
-    //     keys.push(key);
-    // }
-    // return keys.join(', ');
+// 2
+console.log(Object.keys(student).length);
 
+// 3
+function getMethods(obj) {
+    return Object.keys(obj).filter(key => obj[key] instanceof Function);
+}
+
+// 5
+function getAllProperties(obj) {
+    const result = [];
     for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            keys.push(key);
-        }
+        result.push(key);
     }
-    return keys.join(', ');
+    return result;
 }
 
 function Person(name, age) {
@@ -34,24 +37,18 @@ Person.prototype.getName = function () {
     return this.name;
 };
 
-let obj = {
-    name: 'test',
-    address: '1234 1st st',
-    city: 'san jose',
-    getName: function () {
-        return this.name;
-    }
-};
+console.log(getAllProperties(new Person()));
 
-console.log(getProperties(new Person()));
+// 4
+// function parseURL(url) {
+//     const regex =
+//         /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/;
+//     return url.match(regex);
+//     return result;
+// }
 
-
-function parseURL(url) {
-    const regex = /^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?$/
-    const result = new URL(url);
-
-    // return url.match(regex);
-    return result;
-}
-
-console.log(parseURL('https://stackoverflow.com/questions/27745/getting-parts-of-a-url-regex'))
+// console.log(
+//     parseURL(
+//         'https://stackoverflow.com/questions/27745/getting-parts-of-a-url-regex'
+//     )
+// );
