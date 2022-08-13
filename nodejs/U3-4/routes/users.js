@@ -3,6 +3,7 @@ const router = express.Router();
 require('../configs/mongodbConfig');
 const User = require('../models/user');
 
+// /api/users/getAll
 router.get('/getAll', async (req, res) => {
     const result = await User.find();
     res.json(result);
@@ -27,14 +28,15 @@ router.post('/insertOne', async (req, res) => {
 
 router.delete('/deleteOne/:id', async (req, res) => {
     try {
-        await User.findByIdAndDelete();
+        await User.findByIdAndDelete({ _id: req.params.id });
         res.json({ message: 'Success!' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
-// router.use('/users').get(getAll).post(insertOne)
-// router.use('/users/:userId').get(getOne).put(updateOne).delete(deleteOne);
+// With RESTful API
+// router.use('/').get(getAll).post(insertOne)
+// router.use('/:userId').get(getOne).put(updateOne).delete(deleteOne);
 
 module.exports = router;

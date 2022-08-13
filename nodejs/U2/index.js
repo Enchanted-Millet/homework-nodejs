@@ -33,13 +33,19 @@ app.get('/api/async/:url1/:url2/:url3', (req, res) => {
     url3 = `https://www.${url3}`;
 
     const fetchURL = url => {
-        return axios.get(url);
+        return axios.get(url); // -> return Promise
     };
 
     //! The order of the promise array is preserved upon completion of this method.
     Promise.all([fetchURL(url1), fetchURL(url2), fetchURL(url3)])
         .then(data => {
-            data.forEach((result, idx) => console.log(`=====${idx}=====\n`, result.data.substring(0, 255), '\n'));
+            data.forEach((result, idx) =>
+                console.log(
+                    `=====${idx}=====\n`,
+                    result.data.substring(0, 255),
+                    '\n'
+                )
+            );
         })
         .catch(err => console.error(err))
         .finally(() => res.send('finished'));
