@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import styled from '@emotion/styled';
+import React, { Component } from 'react'
+import styled from '@emotion/styled'
 
 const Container = styled.div`
     margin: auto;
@@ -7,7 +7,7 @@ const Container = styled.div`
     width: 33%;
     height: 500px;
     position: relative;
-`;
+`
 
 const Display = styled.div`
     width: 100%;
@@ -16,7 +16,7 @@ const Display = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 1000%;
-`;
+`
 
 // export default function Timer() {
 //     const [count, setCount] = React.useState(0);
@@ -64,32 +64,32 @@ const Display = styled.div`
 // }
 
 export default class Timer extends Component {
-    state = { count: 0, started: false };
-    intervalId = null;
+    state = { count: 0, started: false }
+    intervalId = null
 
     handleClick = e => {
-        const { name } = e.target;
+        const { name } = e.target
         if (name === 'start') {
-            this.setState({ started: true });
+            this.setState({ started: true })
             this.intervalId = setInterval(() => {
                 this.setState(prevState => ({
                     ...prevState,
                     count: prevState.count + 1
-                }));
+                }))
                 // this.setState({ count: this.state.count + 1 });
-            }, 1000);
+            }, 1000)
         } else if (name === 'stop') {
-            this.setState({ started: false });
-            clearInterval(this.intervalId);
+            this.setState({ started: false })
+            clearInterval(this.intervalId)
         } else if (name === 'reset') {
-            this.setState({ count: 0 });
-            this.setState({ started: false });
-            clearInterval(this.intervalId);
+            this.setState({ count: 0 })
+            this.setState({ started: false })
+            clearInterval(this.intervalId)
         }
-    };
+    }
 
     render() {
-        let { count, started } = this.state;
+        let { count, started } = this.state
         return (
             <Container>
                 <Display>{count}</Display>
@@ -127,6 +127,6 @@ export default class Timer extends Component {
                     </button>
                 </div>
             </Container>
-        );
+        )
     }
 }

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import styled from '@emotion/styled';
+import React, { Component } from 'react'
+import styled from '@emotion/styled'
 
 const Container = styled.div`
     margin: auto;
@@ -7,7 +7,7 @@ const Container = styled.div`
     width: 33%;
     height: 500px;
     position: relative;
-`;
+`
 
 const Display = styled.div`
     width: 100%;
@@ -16,28 +16,27 @@ const Display = styled.div`
     justify-content: center;
     align-items: center;
     font-size: 1000%;
-`;
+`
 
 export default class Counter extends Component {
     constructor(props) {
-        super(props);
-        this.state = { countNumber: 0 };
+        super(props)
+        this.state = { countNumber: 0 }
     }
 
     // handleChange(e) {
     handleChange = e => {
-        console.log(this.state.countNumber); // 0
-        const { name } = e.target;
+        const { name } = e.target
         if (name === 'plus') {
             this.setState(prevState => ({
                 countNumber: prevState.countNumber + 1
-            }));
+            }))
         } else if (name === 'minus') {
             this.setState(prevState => ({
                 countNumber: prevState.countNumber - 1
-            }));
+            }))
         }
-    };
+    }
 
     render() {
         return (
@@ -66,7 +65,7 @@ export default class Counter extends Component {
                     </button>
                 </div>
             </Container>
-        );
+        )
     }
 }
 

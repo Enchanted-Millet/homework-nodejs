@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import styled from '@emotion/styled';
-import axios from 'axios';
+import React, { Component } from 'react'
+import styled from '@emotion/styled'
+import axios from 'axios'
 
 const Container = styled.div`
     margin: 0;
@@ -8,7 +8,7 @@ const Container = styled.div`
     display: flex;
     border: none;
     width: 100%;
-`;
+`
 
 const List = styled.div`
     width: 40%;
@@ -46,7 +46,7 @@ const List = styled.div`
         font-size: 1rem;
         cursor: pointer;
     }
-`;
+`
 
 const DetailContainer = styled.div`
     padding: 0 0 0 10px;
@@ -65,7 +65,7 @@ const DetailContainer = styled.div`
             transition: font-size 0.3s;
         }
     }
-`;
+`
 
 const ItemList = ({ id, idx, login, avatar_url, showOneUser }) => {
     return (
@@ -85,8 +85,8 @@ const ItemList = ({ id, idx, login, avatar_url, showOneUser }) => {
                 />
             </td>
         </tr>
-    );
-};
+    )
+}
 
 const Detail = props => {
     if ('name' in props.user) {
@@ -103,48 +103,49 @@ const Detail = props => {
                                 <a href={repo.html_url}>{repo.name}</a>
                                 <p>{repo.description}</p>
                             </li>
-                        );
+                        )
                     })}
                 </ul>
             </DetailContainer>
-        );
+        )
     } else {
-        return null;
+        return null
     }
-};
+}
 
 class GithubPage extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             allUser: [],
             user: {},
             repos: []
-        };
+        }
     }
 
     componentDidMount() {
         // fetch api
+        // fetch()
         axios
             .get('https://api.github.com/users?per_page=20')
             .then(response => {
-                this.setState({ allUser: response.data });
+                this.setState({ allUser: response.data })
             })
             .catch(err => {
-                console.log(err);
-            });
+                console.log(err)
+            })
     }
 
     showOneUser = id => () => {
         axios
             .get(this.state.allUser[id].url)
             .then(res => this.setState({ user: res.data }))
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
         axios
             .get(this.state.allUser[id].repos_url)
             .then(res => this.setState({ repos: res.data }))
-            .catch(err => console.log(err));
-    };
+            .catch(err => console.log(err))
+    }
 
     render() {
         return (
@@ -172,8 +173,8 @@ class GithubPage extends Component {
                 </List>
                 <Detail user={this.state.user} repos={this.state.repos} />
             </Container>
-        );
+        )
     }
 }
 
-export default GithubPage;
+export default GithubPage

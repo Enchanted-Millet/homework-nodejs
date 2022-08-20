@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
-import styled from '@emotion/styled';
-import InputText from './InputText';
+import React, { Component } from 'react'
+import styled from '@emotion/styled'
+import InputText from './InputText'
 
 const StyledForm = styled.form`
     width: 400px;
     margin: auto;
     position: relative;
-`;
+`
 
 const StyledCheckbox = styled.input`
     border: ${props => (props.errors ? '2px solid red' : 'none')};
-`;
+`
 
 const initialState = {
     username: { value: 'SteveJobs', errors: [] },
@@ -19,7 +19,7 @@ const initialState = {
     password: { value: '1QQ2ww3ee', errors: [] },
     devSkills: { value: '5', errors: [] },
     terms: { checked: true, errors: [] }
-};
+}
 
 const emptyState = {
     username: { value: '', errors: [] },
@@ -28,9 +28,9 @@ const emptyState = {
     password: { value: '', errors: [] },
     devSkills: { value: '', errors: [] },
     terms: { checked: false, errors: [] }
-};
-Object.freeze(initialState);
-Object.freeze(emptyState);
+}
+Object.freeze(initialState)
+Object.freeze(emptyState)
 
 const getErrorMessage = (key, option = {}) => {
     const mapping = {
@@ -41,19 +41,27 @@ const getErrorMessage = (key, option = {}) => {
         containNumber: 'Must be at least one number',
         digit1To10: 'Must be a number between 1 and 10',
         accepted: 'Required'
-    };
-    return mapping[key];
-};
+    }
+    return mapping[key]
+}
 
 export default class Form extends Component {
     state = {
         username: { value: 'SteveJobs', errors: [] },
+        // errors: {
+        //     username: ['required'],
+        //     email: [],
+        //     confirmEmail: [],
+        //     password: [],
+        //     devSkills: [],
+        //     terms: []
+        // },
         email: { value: 's.jobs@apple.com', errors: [] },
         confirmEmail: { value: 's.jobs@apple.com', errors: [] },
         password: { value: '1QQ2ww3ee', errors: [] },
         devSkills: { value: '5', errors: [] },
         terms: { checked: true, errors: [] }
-    };
+    }
 
     requirements = {
         username: () => ({
@@ -78,15 +86,15 @@ export default class Form extends Component {
         terms: () => ({
             accepted: this.state.terms.checked
         })
-    };
+    }
 
     getValue = name => {
-        return this.state?.[name]?.value;
-    };
+        return this.state?.[name]?.value
+    }
 
     getErrors = name => {
-        return this.state?.[name]?.errors;
-    };
+        return this.state?.[name]?.errors
+    }
 
     handleChange = name => e => {
         if (Object.keys(this.state).includes(name)) {
@@ -96,29 +104,29 @@ export default class Form extends Component {
                         ...this.state.terms,
                         checked: !this.state.terms.checked
                     }
-                });
+                })
             } else {
                 this.setState({
                     [name]: { ...this.state[name], value: e.target.value }
-                });
+                })
             }
         }
-    };
+    }
 
     handleValidate =
         (name, option = {}) =>
         _ => {
-            const require = this.requirements?.[name];
+            const require = this.requirements?.[name]
             if (require) {
-                const field = this.state[name];
-                const errors = [];
+                const field = this.state[name]
+                const errors = []
                 for (let [name, validator] of Object.entries(require(option))) {
                     if (typeof validator === 'boolean') {
                         if (!validator) {
                             errors.push({
                                 name,
                                 message: getErrorMessage(name, option)
-                            });
+                            })
                         }
                     } else {
                         // else it must be Regex
@@ -126,16 +134,16 @@ export default class Form extends Component {
                             errors.push({
                                 name,
                                 message: getErrorMessage(name, option)
-                            });
+                            })
                         }
                     }
                 }
-                this.setState({ [name]: { ...field, errors } });
+                this.setState({ [name]: { ...field, errors } })
             }
-        };
+        }
 
     handleSubmit = async e => {
-        e.preventDefault();
+        e.preventDefault()
         Promise.all([
             this.handleValidate('username')(),
             this.handleValidate('email')(),
@@ -147,32 +155,38 @@ export default class Form extends Component {
             .then(() => {
                 for (let { errors } of Object.values(this.state)) {
                     if (errors.length > 0) {
-                        return Promise.resolve(true);
+                        return Promise.resolve(true)
                     }
                 }
-                return Promise.resolve(false);
+                return Promise.resolve(false)
             })
             .then(hasError => {
                 if (!hasError) {
                     const result = Object.entries(this.state).reduce(
                         (acc, [name, { value }]) => {
-                            acc[name] = value;
-                            return acc;
+                            acc[name] = value
+                            return acc
                         },
                         {}
-                    );
-                    alert(JSON.stringify(result));
+                    )
+                    alert(JSON.stringify(result))
                 }
-            });
-    };
+            })
+    }
 
     handleReset = () => {
-        this.setState(initialState);
-    };
+        this.setState(initialState)
+    }
 
     handleClear = () => {
-        this.setState(emptyState);
-    };
+        this.setState(emptyState)
+    }
+
+    handleNameChange = e => {
+        this.setState({
+            username: e.target.value
+        })
+    }
 
     render() {
         return (
@@ -264,6 +278,6 @@ export default class Form extends Component {
                     </button>
                 </div>
             </StyledForm>
-        );
+        )
     }
 }

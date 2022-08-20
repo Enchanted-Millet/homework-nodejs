@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import styled from '@emotion/styled';
-import List from './List';
+import React, { Component } from 'react'
+import styled from '@emotion/styled'
+import List from './List'
 
-let ID = 1;
+let ID = 1
 
 const Container = styled.div`
     width: 400px;
     margin: auto;
-`;
+`
 
 const RemainingBox = styled.div`
     display: flex;
@@ -17,25 +17,25 @@ const RemainingBox = styled.div`
     span {
         padding: 7px 0;
     }
-`;
+`
 
 const findOneById = (items, id) => {
-    return items.find(item => item.id === id);
-};
+    return items.find(item => item.id === id)
+}
 
 class App extends Component {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             input: '',
             items: []
-        };
+        }
     }
     handleInputChange = e => {
         this.setState({
             input: e.target.value
-        });
-    };
+        })
+    }
 
     handleKeyDown = e => {
         if (e.keyCode === 13) {
@@ -43,39 +43,39 @@ class App extends Component {
                 id: ID++,
                 name: this.state.input,
                 completed: false
-            };
-            this.setState({ items: [...this.state.items, newItem], input: '' });
+            }
+            this.setState({ items: [...this.state.items, newItem], input: '' })
         }
-    };
+    }
 
     handleCheckItem = id => {
-        const items = [...this.state.items];
+        const items = [...this.state.items]
         //  [{}, {completed: true-> false}, {}...]
-        const item = findOneById(items, id);
+        const item = findOneById(items, id)
         // const item = findOneById(this.state.items, id);
         if (item) {
-            item.completed = !item.completed;
+            item.completed = !item.completed
         }
-        console.log(this.state.items);
-        this.setState({ items });
+        console.log(this.state.items)
+        this.setState({ items })
         // this.setState({ items: this.state.items });
-    };
+    }
 
     handleClearAllCompleted = () => {
         this.setState({
             items: this.state.items.map(item => ({ ...item, completed: false }))
-        });
-    };
+        })
+    }
 
     handleMarkAllDone = () => {
         this.setState({
             items: this.state.items.map(item => ({ ...item, completed: true }))
-        });
-    };
+        })
+    }
 
     render() {
-        let { items } = this.state;
-        let remain = items.filter(item => !item.completed).length;
+        let { items } = this.state
+        let remain = items.filter(item => !item.completed).length
         return (
             <Container>
                 <h1>Todos - ReactJs</h1>
@@ -104,8 +104,8 @@ class App extends Component {
                     />
                 </div>
             </Container>
-        );
+        )
     }
 }
 
-export default App;
+export default App
