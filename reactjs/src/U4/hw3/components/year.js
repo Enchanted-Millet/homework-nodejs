@@ -51,6 +51,7 @@ export default function YearTable({ dateObj, setDate, showYearTableHandler }) {
             cells.push(row)
         }
     })
+
     rows.push(cells)
     let yearList = rows.map((d, i) => <tr key={i}>{d}</tr>)
 
