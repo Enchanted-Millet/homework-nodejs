@@ -11,7 +11,7 @@ export default class App extends Component {
     render() {
         return (
             <React.Suspense fallback={<div>Loading...</div>}>
-                <U4 />
+                <U6 />
             </React.Suspense>
         )
     }

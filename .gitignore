@@ -6,3 +6,4 @@ Thumbs.db
 build-storybook.log
 storybook-static/.env
 .env
+coverage

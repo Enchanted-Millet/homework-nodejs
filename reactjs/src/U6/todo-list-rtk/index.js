@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import List from './List'
-import { addItem, toggleItem, toggleItems } from './redux/actions/todos'
 import styled from '@emotion/styled'
+import List from './List'
+import { addTodo, toggleTodo, toggleTodos } from './features/todos/todosSlice'
 
 const Container = styled.div`
     width: 400px;
@@ -23,7 +23,7 @@ const TodoList = () => {
     const [input, setInput] = useState('')
 
     //! use `useSelector` hook to get required state in redux store
-    const items = useSelector(state => state)
+    const { todos, filters } = useSelector(state => state)
 
     const dispatch = useDispatch()
 
@@ -33,31 +33,35 @@ const TodoList = () => {
 
     const handleKeyDown = e => {
         if (e.keyCode === 13) {
-            const newItem = {
-                name: input,
-                completed: false
-            }
-
             //! call action creator to update redux store
-            dispatch(addItem(newItem))
-            // dispatch({type: '', payload: {}})
+            dispatch(addTodo(input))
             setInput('')
         }
     }
 
     const handleCheckItem = id => {
-        dispatch(toggleItem(id))
+        dispatch(toggleTodo(id))
     }
 
     const handleClearAllCompleted = () => {
-        dispatch(toggleItems(false))
+        dispatch(toggleTodos(false))
     }
 
     const handleMarkAllDone = () => {
-        dispatch(toggleItems(true))
+        dispatch(toggleTodos(true))
     }
 
-    let remain = items.filter(item => !item.completed).length
+    const filteredTodos = React.useMemo(
+        () =>
+            filters.color
+                ? todos.filter(todo => todo.color === filters.color)
+                : todos,
+        [filters, todos]
+    )
+    const remain = React.useMemo(
+        () => filteredTodos.filter(todo => !todo.completed).length,
+        [filteredTodos]
+    )
 
     return (
         <Container data-testid="todo-container">
@@ -83,7 +87,7 @@ const TodoList = () => {
             </RemainingBox>
             <div>
                 <List
-                    items={items}
+                    items={filteredTodos}
                     handleCheckItem={handleCheckItem}
                     handleMarkAllDone={handleMarkAllDone}
                 />

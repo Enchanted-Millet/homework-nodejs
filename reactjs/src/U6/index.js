@@ -1,7 +1,9 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import TodoList from './hw1';
-import store from './hw1/redux/store';
+import React from 'react'
+import { Provider } from 'react-redux'
+import TodoList from './hw1'
+import store from './hw1/redux/store'
+import TodoListRTK from './todo-list-rtk'
+import storeRTK from './todo-list-rtk/app/store'
 
 /**
  * Redux setup steps
@@ -15,11 +17,12 @@ import store from './hw1/redux/store';
 
 const U6 = () => {
     return (
-        <Provider store={store}>
-            <TodoList />
+        <Provider store={storeRTK}>
+            {/* <TodoList /> */}
+            <TodoListRTK />
             {/* <Another /> */}
         </Provider>
-    );
-};
+    )
+}
 
-export default U6;
+export default U6
