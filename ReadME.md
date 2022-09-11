@@ -21,3 +21,6 @@ The practice to database and RESTful api
 ## React Section
 
 Add storybook for an easy way to help demo
+
+# Further Study Material
+I have collected some useful study materials and organized them into [this md file](./StudyMaterial.md)
