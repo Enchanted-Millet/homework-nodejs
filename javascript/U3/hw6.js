@@ -1,21 +1,23 @@
-function getValue(character) {
-    return character.charCodeAt() - 'a'.charCodeAt() + 1;
+const calStr = (str) => {
+    let val = 0
+    for (i = 0; i < str.length; i++) {
+        val += str.charCodeAt(i) - 96
+    }
+    return val
 }
 
-function calcValues(str) {
-    const result = {};
-    const splits = str.trim().split(' ');
-    splits.forEach(letters => {
-        const value = letters
-            .split('')
-            .reduce((acc, cur) => acc + getValue(cur), 0);
-        if (value in result) {
-            result[value].push(letters);
+const calInput = (str) => {
+    let result = {}
+    let arr = str.trim().split(/\s+/);
+    for (let i = 0; i < arr.length; i++) {
+        if (result[calStr(arr[i])] === undefined) {
+            result[calStr(arr[i])] = [arr[i]]
         } else {
-            result[value] = [letters];
+            result[calStr(arr[i])].push(arr[i])
         }
-    });
-    return result;
+        
+    }
+    return result
 }
 
-console.log(calcValues('abc cde adb dfb def ee abcd cc'));
+console.log(calInput('   abc cde   adb   dfb def ee     abcd cc  '))

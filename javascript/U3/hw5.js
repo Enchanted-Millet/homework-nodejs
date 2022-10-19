@@ -1,74 +1,67 @@
-const SUITS = ['Club', 'Diamond', 'Heart', 'Spade'];
-const NUM_CARDS = 13;
+const suit = ['Spades', 'Hearts', 'Diamonds', 'Clubs']
+const num = []
 
-function createOneCard(num, suit) {
-    return { num, suit };
-}
+for (let i = 0; i < 13; i++) { 
+    num[i] = i + 1 
+} 
 
-function initDeck(deck) {
-    SUITS.forEach(suit => {
-        for (let i = 0; i < NUM_CARDS; i++) {
-            deck.push(createOneCard(i + 1, suit));
-        }
-    });
-}
-
-function printAllCards(deck, shuffled = false) {
-    let printResult = '';
-    deck.forEach(({ num, suit }, idx) => {
-        if (shuffled) {
-            printResult +=
-                idx % NUM_CARDS === NUM_CARDS - 1
-                    ? `${suit} - ${num}.\n`
-                    : `${suit} - ${num}, `;
-        } else {
-            printResult +=
-                idx % NUM_CARDS === NUM_CARDS - 1
-                    ? `${num} of ${suit}.\n`
-                    : `${num} of ${suit}, `;
-        }
-    });
-    console.log(printResult);
-}
-
-function shuffleCards(cards = []) {
-    let shuffledCards = [...cards];
-    for (let i = cards.length; i > 0; i--) {
-        const randomIdx = Math.floor(Math.random() * i);
-        shuffledCards = [
-            ...shuffledCards.slice(0, randomIdx),
-            ...shuffledCards.slice(randomIdx + 1),
-            shuffledCards[randomIdx]
-        ];
+const shuffle = (arr) => {
+    let i = arr.length; 
+    while (i) { 
+        let j = Math.floor(Math.random() * i--); 
+        [arr[j], arr[i]] = [arr[i], arr[j]]; 
     }
-    return shuffledCards;
+    return arr
 }
 
-function shuffleDeck(deck) {
-    const shuffledDeck = [];
-    SUITS.forEach((_, idx) => {
-        shuffledDeck.push(
-            ...shuffleCards(deck.slice(NUM_CARDS * idx, NUM_CARDS * (idx + 1)))
-        );
-    });
-    return shuffledDeck;
+const initializeCards = () => {
+    let sortedCards = [[], [], [], []]
+    for (let i = 0; i < 4; i++) { 
+        for (let j = 0; j < 13; j++) { 
+            sortedCards[i][j] = `${suit[i]} - ${num[j]}`
+        }
+    }
+    return sortedCards
+
 }
 
-function main() {
-    const deck = [];
-    console.log('******* Initializing the deck *******');
-    initDeck(deck);
-    // console.log(deck);
-    console.log('******* 1 print out - all cards in order *******');
-    printAllCards(deck);
-    const shuffledDeck = shuffleDeck(deck);
-    console.log('******* 2 print out - all cards in random number *******');
-    printAllCards(shuffledDeck, true);
-    const shuffledAllCards = shuffleCards(deck);
-    console.log(
-        '******* 3 print out - all cards in random number & suit *******'
-    );
-    printAllCards(shuffledAllCards, true);
+const randomEach = () => {
+    let randomCards1 = [[], [], [], []]
+    let initial = initializeCards()
+    for (let i = 0; i < 4; i++) { 
+        randomCards1[i] = shuffle(initial[i])
+    }
+    return randomCards1
 }
 
-main();
+const randomAcross = () => {
+    let randomCards2 = [[], [], [], []]
+    let initial = initializeCards()
+    let temp = []
+    let m = 0, n = 0
+    for (let i = 0; i < 4; i++) { 
+        for (let j = 0; j < 13; j++) { 
+                temp[m] = initial[i][j]
+                m++
+        }
+    }
+    temp = shuffle(temp)
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 13; j++) {
+            randomCards2[i][j] = temp[n]
+            n++
+        }
+    }
+    return randomCards2
+}
+
+const printCards = () => {
+    let initialCard = initializeCards()
+    console.log(`The 1st print out:\n${initialCard[0].toString()}\n${initialCard[1].toString()}\n${initialCard[2].toString()}\n${initialCard[3].toString()}\n`)
+    let randomCard1 = randomEach()
+    console.log(`The 2nd print out:\n${randomCard1[0].toString()}\n${randomCard1[1].toString()}\n${randomCard1[2].toString()}\n${randomCard1[3].toString()}\n`)
+    let randomCard2 = randomAcross()
+    console.log(`The 3rd print out:\n${randomCard2[0].toString()}\n${randomCard2[1].toString()}\n${randomCard2[2].toString()}\n${randomCard2[3].toString()}\n`)
+}
+
+printCards()
