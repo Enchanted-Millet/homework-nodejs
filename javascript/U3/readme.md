@@ -21,7 +21,8 @@ for (let i = 0; i < data.length; i++) {
     total += deviation * deviation;
 }
 let stddev = Math.sqrt(total / (data.length - 1));
-
+```
+```js
 // functional programming - declarative - focus on what to do
 let sum = function (x, y) {
     return x + y;
