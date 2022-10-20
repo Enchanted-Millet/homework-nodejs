@@ -1,29 +1,33 @@
-target = 100;
-array1 = [1, 5, 25, 50];
+TOTAL_NUM = 100;
+coins = [50, 25, 5, 1];
 
-function find2Solutions(array) {
+function find2Solutions() {
   let solutions = [];
-
-  while (solutions.length < 2) {
-    let target = 100;
-    let solution = [];
-    while (target > 0) {
-      let index = Math.floor(Math.random() * 4);
-      target = target - array[index];
-      solution.push(array[index]);
-    }
-
-    if (target === 0) {
-      solutions.push(new Array(solution));
-      if (
-        solutions.length == 2 &&
-        solutions[1].toString() === solutions[0].toString()
-      ) {
-        solutions.pop();
-      }
-    }
-  }
+  helper(0, 100, [0, 0, 0, 0], solutions);
   return solutions;
 }
-const answer = find2Solutions(array1);
-console.log(answer[0].toString(), answer[1].toString());
+function helper(startIndex, target, sol, solutions) {
+  if (startIndex === 3) {
+    sol[startIndex] =
+      TOTAL_NUM - sol[0] * coins[0] - sol[1] * coins[1] - sol[2] * coins[2];
+    let tempSum = sol[0] + sol[1] + sol[2] + sol[3];
+    if (tempSum === 48) {
+      let copySol = [...sol];
+      solutions.push(copySol);
+    }
+    return;
+  }
+  //j is coins index
+  for (let j = startIndex; j < coins.length - 1; j++) {
+    //i is number of coins[j]
+    for (let i = 0; i < target / coins[j]; i++) {
+      sol[j] = i;
+      helper(j + 1, target - coins[j] * i, sol, solutions);
+      if (solutions.length === 2) break;
+    }
+  }
+}
+
+const solutions = find2Solutions();
+console.log(solutions[0].toString());
+console.log(solutions[1].toString());

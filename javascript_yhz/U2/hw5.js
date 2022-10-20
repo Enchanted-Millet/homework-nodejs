@@ -1,5 +1,5 @@
 function steps(number) {
-  var n = recursion(number, 0);
+  let n = recursion(number, 0);
   return n;
 }
 
@@ -12,10 +12,7 @@ function recursion(number, step) {
   } else {
     number = number * 3 + 1;
   }
-  step++;
-  console.log(number, step);
-  step = recursion(number, step);
-  return step;
+  return recursion(number, step + 1);
 }
 let n = steps(8);
 console.log(n);
