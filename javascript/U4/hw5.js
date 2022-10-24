@@ -24,11 +24,14 @@ class TwoSum {
         //     if (num === n) count++;
         //     return num !== n;
         // });
-        for (let idx in this.numbers) {
+        let idx = 0;
+        while (idx < this.numbers.length) {
             if (this.numbers[idx] === n) {
                 count++;
                 this.numbers.splice(idx, 1);
                 // slice, splice
+            } else {
+                idx++;
             }
         }
         return count;
@@ -44,4 +47,5 @@ sol.add(4);
 sol.add(5);
 console.log(sol.find(6));
 console.log(sol.remove(4));
+console.log(sol.numbers);
 console.log(sol.find(8));
