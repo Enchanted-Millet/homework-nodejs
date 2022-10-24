@@ -1,23 +1,22 @@
 //ES5
-function singleton(name) {
-    if (!singleton.instance) {
-        this.name = name
-        singleton.instance = this
-    }
-    return singleton.instance
-}
+// function Singleton() {
+//     if (Singleton.instance instanceof Singleton) {
+//         return Singleton.instance
+        
+//     }
+//     Singleton.instance = this
+// }
 
 //ES6
-class singleton {
-    constructor(name) {
-        if (!singleton.instance) {
-            this.name = name
-            singleton.instance = this
+class Singleton {
+    constructor() {
+        if (Singleton.instance instanceof Singleton) {
+            return Singleton.instance
         }
-        return singleton.instance
+        Singleton.instance = this
     }
 }
 
-const a = new singleton('a')
-const b = new singleton('b')
+const a = new Singleton()
+const b = new Singleton()
 console.log(a === b)
