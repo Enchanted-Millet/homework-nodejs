@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from '@emotion/styled'
+import { Button, Col, Row } from 'antd'
 
 const Container = styled.div`
     margin: auto;
@@ -22,6 +23,7 @@ export default class Counter extends Component {
     constructor(props) {
         super(props)
         this.state = { countNumber: 0 }
+        // this.handleChange = this.handleChange.bind(this)
     }
 
     // handleChange(e) {
@@ -42,28 +44,23 @@ export default class Counter extends Component {
         return (
             <Container>
                 <Display>{this.state.countNumber}</Display>
-                <div
-                    className="btn-group"
-                    role="group"
-                    style={{ width: '100%' }}
-                >
-                    <button
-                        name="plus"
-                        className="btn btn-primary btn-lg"
-                        type="button"
-                        onClick={this.handleChange}
-                    >
-                        +
-                    </button>
-                    <button
-                        name="minus"
-                        className="btn btn-primary btn-lg"
-                        type="button"
-                        onClick={this.handleChange}
-                    >
-                        -
-                    </button>
-                </div>
+                <Row>
+                    <Col span={12}>
+                        <Button
+                            name="plus"
+                            type="primary"
+                            block
+                            onClick={this.handleChange}
+                        >
+                            +
+                        </Button>
+                    </Col>
+                    <Col span={12}>
+                        <Button block name="minus" onClick={this.handleChange}>
+                            -
+                        </Button>
+                    </Col>
+                </Row>
             </Container>
         )
     }
