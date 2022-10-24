@@ -1,52 +1,41 @@
-const matrix = n => {
-    // use map to initial 2-D array
-    // const arr2D = new Array(n).fill(0).map(() => new Array(n).fill(0));
-
-    //! Don't use this to initial multi-dimentional array
-    // const arr2D = new Array(n).fill(new Array(n).fill(0));
-
-    /*
-    let arr = new Array(3).fill(new Array(3).fill(0)) => [[0,0,0], [0,0,0], [0,0,0]]
-
-    arr[0][1] = 1 => [ [ 0, 1, 0 ], [ 0, 1, 0 ], [ 0, 1, 0 ] ]
-    */
-
-    const results = [];
+const matrix = (n) => {
+    let start_row = 0
+    let start_col = 0
+    let end_row = n - 1
+    let end_col = n - 1
+    let arr = []
+    let count = 1
     for (let i = 0; i < n; i++) {
-        results.push([]);
+        arr.push([])
     }
-    let counter = 1;
-    let startColumn = 0;
-    let endColumn = n - 1;
-    let startRow = 0;
-    let endRow = n - 1;
-    while (startColumn <= endColumn && startRow <= endRow) {
-        // Top row
-        for (let i = startColumn; i <= endColumn; i++) {
-            results[startRow][i] = counter;
-            counter++;
+    while (start_row < end_row + 1 && start_col < end_col + 1) {
+        for (let i = start_col; i < end_col + 1; i++) {
+            arr[start_row][i] = count
+            count++
         }
-        startRow++;
-        // Right column
-        for (let i = startRow; i <= endRow; i++) {
-            results[i][endColumn] = counter;
-            counter++;
-        }
-        endColumn--;
-        // Bottom row
-        for (let i = endColumn; i >= startColumn; i--) {
-            results[endRow][i] = counter;
-            counter++;
-        }
-        endRow--;
-        // left column
-        for (let i = endRow; i >= startRow; i--) {
-            results[i][startColumn] = counter;
-            counter++;
-        }
-        startColumn++;
-    }
-    return results;
-};
+        start_row++
 
-console.log(matrix(4));
+        for (let i = start_row; i < end_row + 1; i++) {
+            arr[i][end_col] = count
+            count++
+        }
+        end_col--
+
+        for (let i = end_col; i > start_col - 1; i--) {
+            arr[end_row][i] = count
+            count++
+        }   
+        end_row--
+
+        for (let i = end_row; i > start_row - 1; i--) {
+            arr[i][start_col] = count
+            count ++
+        }
+        start_col++
+    }
+
+    return arr
+}
+
+
+console.log(matrix(4))

@@ -1,36 +1,25 @@
-// 1
-function sum(arr) {
-    // accumulator, current Value
-    return arr.reduce((acc, cur) => (acc += cur), 0);
+//1
+const sum = (arr) =>{
+    return arr.reduce((a, x) => a += x)
 }
 
-console.log(sum([1, 2, 3]));
-
-// 2
-
-function filterFalsyValue(arr) {
-    return arr.filter(val => val);
+//2
+const filterArray = (arr) =>{
+    return arr.filter(x => !!x)
 }
 
-console.log(filterFalsyValue([1, '', 0, null, false, {}, []]));
-
-// 3
-function squareNumber(num) {
-    return ('' + num) // String(num)
-        .split('') // ['9', '1', '1', '9']
-        .map(n => '' + +n * +n) // Number(n)
-        .join('');
+//3
+const square = (num) =>{
+    return +num.toString().split('').map(x => (x ** 2)).join('')
 }
 
-console.log(squareNumber(9119));
+//4
+const convertString = (str) =>{
+    return str.trim().split(/\s+/).map(x => x[0].toUpperCase() + x.slice(1)).join(' ')
 
-// 4
-function capitalize(sentence) {
-    return sentence
-        .trim()
-        .split(' ') // -> ['How', 'can', ...]
-        .map(word => word[0].toUpperCase() + word.slice(1))
-        .join(' ');
 }
 
-console.log(capitalize("How can mirrors be real if our eyes aren't real"));
+console.log(sum([65, 44, 12, 4]))
+console.log(filterArray([false, null, 0, undefined,  , 1, 'a']))
+console.log(square(9119))
+console.log(convertString("How can mirrors be real if our eyes aren't real"))
