@@ -8,7 +8,7 @@ console.log(sumArr(arr1));
 //2
 const arr2 = [null, false, 0, "", 2, "ad", true];
 function filterNull(arr) {
-  return arr.filter((item) => !item);
+  return arr.filter((item) => !!item);
 }
 console.log(filterNull(arr2));
 //3

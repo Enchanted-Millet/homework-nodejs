@@ -1,23 +1,42 @@
-//1
-const x = 5;
+//1.1
+const x1 = 8;
 function squareRoot(num) {
-  console.log(Math.sqrt(num));
-  return Math.sqrt(num);
+  if (num === 1 || num === 0) {
+    return num;
+  }
+  let start = 1;
+  let end = num;
+  while (start + 1 < end) {
+    mid = start + Math.floor((end - start) / 2);
+    if (mid * mid === num) {
+      return mid;
+    } else if (mid * mid > num) {
+      end = mid;
+    } else {
+      start = mid;
+    }
+  }
+  return start;
 }
-squareRoot(x);
+console.log(squareRoot(8));
+console.log(squareRoot(90));
+console.log(squareRoot(187));
+console.log(squareRoot(1));
+console.log(squareRoot(4));
 
 //2
 const arr1 = [
   1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1,
 ];
 function numOflongest1(arr) {
-  const only1 = arr
+  const maxlength = arr
     .join("")
     .split(0)
     .filter((item) => item !== "")
-    .sort((a, b) => b.length - a.length);
-  console.log(only1[0].length);
-  return only1[0].length;
+    .reduce((acc, cur) => Math.max(acc, cur.length), 0);
+
+  console.log(maxlength);
+  return maxlength;
 }
 numOflongest1(arr1);
 //3
