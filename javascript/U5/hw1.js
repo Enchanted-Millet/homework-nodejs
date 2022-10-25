@@ -7,7 +7,6 @@ function sum(arr) {
 console.log(sum([1, 2, 3]));
 
 // 2
-
 function filterFalsyValue(arr) {
     return arr.filter(val => val);
 }
