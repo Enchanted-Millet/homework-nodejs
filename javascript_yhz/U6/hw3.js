@@ -1,9 +1,7 @@
-n = -123;
-m = 120;
-x = 4294967298;
+const [n, m, x] = [-123, 120, 2 * 32 + 1];
 
 function reverseNumber(num) {
-  if (num < 2 ** 32) {
+  if (Math.abs(num) < 2 ** 32) {
     let temp = Math.abs(num)
       .toString()
       .split("")
@@ -22,3 +20,12 @@ function reverseNumber(num) {
 console.log(reverseNumber(n));
 console.log(reverseNumber(m));
 console.log(reverseNumber(x));
+
+try {
+  const n = -5000000000;
+  console.log(reverseNumber(n));
+} catch (error) {
+  console.log(error);
+} finally {
+  console.log("finish");
+}
