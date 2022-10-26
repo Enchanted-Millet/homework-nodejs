@@ -1,5 +1,6 @@
+// requirement: num is a 32-bit signed integer, which means num should be between -(2 ^ 31) to 2 ^ 31 - 1
 function reverseInt(num) {
-    if (num <= 2 ** 32) {
+    if (num < 2 ** 31 && num >= -(2 ** 31)) {
         return num > 0
             ? Number(
                   String(num)
@@ -15,10 +16,10 @@ function reverseInt(num) {
 }
 
 try {
-    const result = reverseInt(2 ** 32 + 1);
+    const result = reverseInt(2 ** 31 + 1);
     console.log(result);
 } catch (error) {
-    console.log(error);
+    console.log(error.message);
 } finally {
     console.log('done');
 }
