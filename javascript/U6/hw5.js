@@ -1,9 +1,12 @@
+// Leetcode 151 - https://leetcode.com/problems/reverse-words-in-a-string/
 function reverseWords(sentence) {
+    sentence = sentence.trim().split('')
     let start = 0,
         end = sentence.length - 1;
     while (start < end) {
         [sentence[start++], sentence[end--]] = [sentence[end], sentence[start]];
     }
+
     (start = 0), (end = 0);
     let pivot = 0;
     while (pivot < sentence.length) {
@@ -23,8 +26,18 @@ function reverseWords(sentence) {
             end = pivot + 1;
         }
     }
+    return sentence.join('');
 }
 
-const sentence = 'the sky is blue'.split('');
-reverseWords(sentence);
-console.log(sentence);
+function reverseWords2(sentence) {
+    return sentence.trim().split(/\s+/).reverse().join(' ')
+}
+
+const sentence = '  the sky   is blue ';
+console.log(reverseWords(sentence))
+
+
+module.exports = {
+    reverseWords,
+    reverseWords2
+}
