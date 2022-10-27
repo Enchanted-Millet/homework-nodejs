@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Col, Input, Row } from 'antd'
 
 const conversion = num => {
     if (num === 0) {
@@ -41,24 +42,19 @@ export default class Conversion extends Component {
     render() {
         let { inputValue, conversedValue } = this.state
         return (
-            <div className="input-group">
-                <span className="input-group-text">Provide your input</span>
-                <input
-                    type="text"
-                    aria-label="original input"
-                    className="form-control"
-                    onChange={this.handleChange}
-                    onKeyDown={this.handleConversion}
-                    value={inputValue}
-                />
-                <input
-                    type="text"
-                    aria-label="conversed output"
-                    className="form-control"
-                    readOnly
-                    value={conversedValue}
-                />
-            </div>
+            <Row justify="center" align="middle" style={{ height: '100vh' }}>
+                <Col>
+                    <Input
+                        placeholder="Provide your input"
+                        onChange={this.handleChange}
+                        value={inputValue}
+                        onKeyDown={this.handleConversion}
+                    />
+                </Col>
+                <Col>
+                    <Input readOnly value={conversedValue} />
+                </Col>
+            </Row>
         )
     }
 }

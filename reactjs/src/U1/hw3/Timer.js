@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from '@emotion/styled'
+import { Button, Col, Row } from 'antd'
 
 const Container = styled.div`
     margin: auto;
@@ -93,39 +94,34 @@ export default class Timer extends Component {
         return (
             <Container>
                 <Display>{count}</Display>
-                <div
-                    className="btn-group"
-                    role="group"
-                    style={{ width: '100%' }}
-                >
-                    {started ? (
-                        <button
-                            name="stop"
-                            className="btn btn-primary btn-lg"
-                            type="button"
-                            onClick={this.handleClick}
-                        >
-                            STOP
-                        </button>
-                    ) : (
-                        <button
-                            name="start"
-                            className="btn btn-primary btn-lg"
-                            type="button"
-                            onClick={this.handleClick}
-                        >
-                            START
-                        </button>
-                    )}
-                    <button
-                        name="reset"
-                        className="btn btn-primary btn-lg"
-                        type="button"
-                        onClick={this.handleClick}
-                    >
-                        RESET
-                    </button>
-                </div>
+                <Row>
+                    <Col span={12}>
+                        {started ? (
+                            <Button
+                                block
+                                name="stop"
+                                type="primary"
+                                onClick={this.handleClick}
+                            >
+                                STOP
+                            </Button>
+                        ) : (
+                            <Button
+                                block
+                                name="start"
+                                type="primary"
+                                onClick={this.handleClick}
+                            >
+                                START
+                            </Button>
+                        )}
+                    </Col>
+                    <Col span={12}>
+                        <Button block name="reset" onClick={this.handleClick}>
+                            RESET
+                        </Button>
+                    </Col>
+                </Row>
             </Container>
         )
     }
