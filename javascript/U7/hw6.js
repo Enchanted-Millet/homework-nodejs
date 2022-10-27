@@ -1,3 +1,4 @@
+// Leetcode 243 - https://leetcode.com/problems/shortest-word-distance/
 function wordDistance(words, word1, word2) {
     const mapping = words.reduce((acc, cur, idx) => {
         if (cur in acc) {
