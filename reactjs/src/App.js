@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.css'
 
 const U1 = React.lazy(() => import('./U1'))
 const U2 = React.lazy(() => import('./U2'))
@@ -13,7 +13,7 @@ export default class App extends Component {
     render() {
         return (
             <React.Suspense fallback={<div>Loading...</div>}>
-                <U1 />
+                <U2 />
             </React.Suspense>
         )
     }

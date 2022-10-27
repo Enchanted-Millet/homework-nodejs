@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from '@emotion/styled'
 import axios from 'axios'
+import { Avatar, Card, Skeleton, Table } from 'antd'
 
 const Container = styled.div`
     margin: 0;
@@ -10,107 +11,67 @@ const Container = styled.div`
     width: 100%;
 `
 
-const List = styled.div`
-    width: 40%;
-    height: 100vh;
-    overflow: scroll;
-
-    &::-webkit-scrollbar {
-        display: none;
-    }
-
-    table {
-        text-align: center;
-        margin: auto;
-
-        th {
-            font-size: 1.2rem;
-        }
-
-        th,
-        td {
-            border-bottom: 1px solid #ddd;
-            padding: 2px 10px;
-        }
-    }
-
-    .avatar-small {
-        width: 50px;
-        height: 50px;
-    }
-
-    .name-anchor {
-        background: none;
-        border: none;
-        outline: none;
-        font-size: 1rem;
-        cursor: pointer;
-    }
-`
-
-const DetailContainer = styled.div`
-    padding: 0 0 0 10px;
-    height: 100vh;
-    overflow: scroll;
-    width: 62%;
-
-    img {
-        max-width: 300px;
-    }
-
-    ul {
-        list-style: none;
-        li:hover {
-            font-size: 1.2rem;
-            transition: font-size 0.3s;
-        }
-    }
-`
-
-const ItemList = ({ id, idx, login, avatar_url, showOneUser }) => {
+const CardComponent = ({
+    avatar_url,
+    name,
+    login,
+    location,
+    userLoading,
+    repos
+}) => {
     return (
-        <tr>
-            <td>{id}</td>
-            <td>
-                <button className="name-anchor" onClick={showOneUser(idx)}>
-                    {login}
-                </button>
-            </td>
-
-            <td>
-                <img
-                    className="avatar-small"
-                    src={avatar_url}
-                    alt={avatar_url}
+        <Card
+            style={{
+                height: '100vh',
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}
+            bordered={false}
+            bodyStyle={{
+                border: '1px solid #f0f0f0',
+                boxShadow: '1px 1px 15px 1px slategrey',
+                width: '500px'
+            }}
+        >
+            <Skeleton
+                loading={userLoading}
+                avatar={{ shape: 'circle', size: 'large' }}
+                active
+            >
+                <Card.Meta
+                    avatar={
+                        <Avatar
+                            src={avatar_url}
+                            alt={login}
+                            shape="circle"
+                            size={128}
+                        />
+                    }
+                    title={name}
+                    description={
+                        <>
+                            <p>Location: {location}</p>
+                            <p>Repositories:</p>
+                            <ul>
+                                {repos.slice(0, 3).map(repo => {
+                                    return (
+                                        <li key={repo.id}>
+                                            <a href={repo.html_url}>
+                                                {repo.name}
+                                            </a>
+                                            <p>{repo.description}</p>
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        </>
+                    }
                 />
-            </td>
-        </tr>
+            </Skeleton>
+        </Card>
     )
-}
-
-const Detail = props => {
-    if ('name' in props.user) {
-        return (
-            <DetailContainer>
-                <img src={props.user.avatar_url} alt={props.user.lgoin} />
-                <p>Name: {props.user.name}</p>
-                <p>Location: {props.user.location}</p>
-                <p>Repositories:</p>
-                <ul>
-                    {props.repos.slice(0, 10).map(repo => {
-                        return (
-                            <li key={repo.id}>
-                                <a href={repo.html_url}>{repo.name}</a>
-                                <p>{repo.description}</p>
-                            </li>
-                        )
-                    })}
-                </ul>
-            </DetailContainer>
-        )
-    } else {
-        return null
-    }
 }
 
 class GithubPage extends Component {
@@ -119,7 +80,8 @@ class GithubPage extends Component {
         this.state = {
             allUser: [],
             user: {},
-            repos: []
+            repos: [],
+            userLoading: null
         }
     }
 
@@ -137,41 +99,65 @@ class GithubPage extends Component {
     }
 
     showOneUser = id => () => {
-        axios
-            .get(this.state.allUser[id].url)
-            .then(res => this.setState({ user: res.data }))
-            .catch(err => console.log(err))
-        axios
-            .get(this.state.allUser[id].repos_url)
-            .then(res => this.setState({ repos: res.data }))
-            .catch(err => console.log(err))
+        this.setState({ userLoading: true })
+        Promise.allSettled([
+            axios.get(this.state.allUser[id].url),
+            axios.get(this.state.allUser[id].repos_url)
+        ])
+            .then(([userResult, repoResult]) => {
+                if (userResult.status === 'fulfilled') {
+                    this.setState({ user: userResult.value.data })
+                }
+                if (repoResult.status === 'fulfilled') {
+                    this.setState({ repos: repoResult.value.data })
+                }
+            })
+            .finally(() => this.setState({ userLoading: false }))
+        // axios
+        //     .get(this.state.allUser[id].url)
+        //     .then(res => this.setState({ user: res.data }))
+        //     .catch(err => console.log(err))
+        //     .finally(() => this.setState({ userLoading: false }))
+        // axios
+        //     .get(this.state.allUser[id].repos_url)
+        //     .then(res => this.setState({ repos: res.data }))
+        //     .catch(err => console.log(err))
     }
 
     render() {
+        const data = this.state.allUser.map((user, idx) => ({
+            key: idx,
+            id: user.id,
+            username: user.login,
+            image: user.avatar_url
+        }))
+        const { user, userLoading, repos } = this.state
         return (
             <Container>
-                <List>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>username</th>
-                                <th>image</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.allUser.map((item, index) => (
-                                <ItemList
-                                    key={item.id}
-                                    {...item}
-                                    idx={index}
-                                    showOneUser={this.showOneUser}
-                                />
-                            ))}
-                        </tbody>
-                    </table>
-                </List>
-                <Detail user={this.state.user} repos={this.state.repos} />
+                <Table
+                    dataSource={data}
+                    pagination={false}
+                    onRow={(record, rowIndex) => ({
+                        onClick: this.showOneUser(record.key)
+                    })}
+                >
+                    <Table.Column title="ID" dataIndex="id" />
+                    <Table.Column title="Username" dataIndex="username" />
+                    <Table.Column
+                        title="Image"
+                        dataIndex="image"
+                        render={image => (
+                            <Avatar src={image} size={64} shape="square" />
+                        )}
+                    />
+                </Table>
+                {userLoading !== null ? (
+                    <CardComponent
+                        {...user}
+                        userLoading={userLoading}
+                        repos={repos}
+                    />
+                ) : null}
             </Container>
         )
     }
