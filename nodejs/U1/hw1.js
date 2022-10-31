@@ -1,82 +1,86 @@
-const http = require('http');
-const matrix = require('./matrix');
+const http = require('http')
+const matrixToString = require('./matrix')
 
-function prettyPrintMatrix(matrix) {
-    let prettyLog = '';
-    matrix.forEach(row => {
-        let printRow = '';
-        row.forEach(val => {
-            printRow += val + '\t';
-        });
-        prettyLog += printRow + '\n';
-    });
-    return prettyLog;
-}
-
+//Step 2
 const server = http.createServer((req, res) => {
-    const url = new URL(req.url, 'http://localhost:8000');
-    console.log(url);
-    if (req.method === 'GET') {
-        if (url.pathname === '/') {
-            console.log('step 2');
-            res.end(prettyPrintMatrix(matrix(5)));
-        } else if (url.pathname.search(/\/matrix\/\d+/) >= 0) {
-            console.log('step 3');
-            const num = url.pathname.match(/\/\d+/g);
-            const result = matrix(+num[0].substring(1));
-            res.end(prettyPrintMatrix(result));
-        } else if (url.pathname.search(/\/matrix\.html/) >= 0) {
-            console.log('step 4');
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            const html = `
-                <html lang="en">
-                    <head>
-                        <meta charset="UTF-8" />
-                        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                        <title>Matrix</title>
-                    </head>
-                    <body>
-                        <div id="matrix">
-                            <form action="/api/getMatrix" target="result" method="POST">
-                                <label for="dimension">Please enter dimension:</label>
-                                <input id="dimension" type="text" name="dimension" />
-                                <input type="submit" value="Submit" />
-                            </form>
-                            <iframe name="result" frameborder="0" width="100%"></iframe>
-                        </div>
-                    </body>
-                </html>`;
-            // fs.createReadStream('./matrix.html', 'utf-8').pipe(res);
-            res.end(html);
+	if(req.method === 'GET') {
+        if (req.url) {
+            res.writeHead(200, {'Content-Type': 'text/plain'})
+            res.end(matrix(5))
+        }
+    }
+})
+
+
+//Step 3
+const server = http.createServer((req, res) => {
+    const url = new URL(req.url, 'http://localhost:8080')
+	if(req.method === 'GET') {
+        if (url.pathname.match(/\/matrix\/\d+/g)) {
+            let str = url.pathname.match(/\/matrix\/\d+/g).toString()
+            let index = str.lastIndexOf("\/")
+            let param = str.substring(index + 1, str.length)
+            res.writeHead(200, {'Content-Type': 'text/plain'})
+            res.end(matrixToString(param))
         } else {
-            res.writeHead(404);
-            res.end('not found');
+            res.writeHead(404)
+            res.end('not found')
+        }
+    }
+})
+
+
+//Step 4
+const server = http.createServer((req, res) => {
+    const url = new URL(req.url, 'http://localhost:8080')
+	if(req.method === 'GET') {
+        if (req.url) {
+            const html = `
+            <!DOCTYPE html>
+            <html lang="en">
+                <head>
+                    <meta charset="utf-8">
+                    <title>Spiral Matrix</title>
+                </head>
+                <body>
+                    <h1>Spiral Matrix</h1>
+                    <form method="POST" action="/api/getMatrix">
+                        <label for= "dimension">Please Enter dimension: </label>
+                        <input id="dimension" type="text" name="dimension">
+                        <button >Submit</button>
+                    </form>
+                </body>
+            </html>`
+
+            res.writeHead(200, {'Content-Type': 'text/html'})
+            res.end(html)
         }
     } else if (req.method === 'POST') {
         if (url.pathname === '/api/getMatrix') {
-            let body = '';
-            req.on('data', function (chunk) {
-                body += chunk;
-            });
-
-            req.on('end', function () {
-                // body -> dimension=5
-                // console.log('🚀 ~ file: hw1.js ~ line 41 ~ server ~ body', body);
-                const dimension = body.split('=')[1];
-                if (/^\d+$/.test(dimension)) {
-                    res.end(prettyPrintMatrix(matrix(+dimension)));
+            let str = ''
+            req.on('data', (chunk) => {
+                str += chunk
+            })
+            req.on('end', () => {
+                const dimension = str.split('=')[1]
+                if (dimension >= 0) {
+                    res.writeHead(200, {"Content-Type": "text/plain"})
+                    res.end(matrixToString(dimension))
                 } else {
-                    res.writeHead(400);
-                    res.end('Please provide a valid dimension.');
+                    res.writeHead(400)
+                    res.end('invalid dimension')
                 }
-            });
+            })
         } else {
-            res.writeHead(404);
-            res.end('wrong api end point');
+            res.writeHead(404)
+            res.end('wrong api end point')
         }
     }
-});
+})
 
-const port = process.env.PORT || 8000;
-server.listen(port, () => console.log('app is listening on port', port));
+
+const port = 8080
+server.listen(port, function() {
+			console.log(`server startd on port ${port}`)
+		}
+)
