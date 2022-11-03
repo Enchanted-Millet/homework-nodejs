@@ -1,76 +1,57 @@
-const matrix = n => {
-    const results = [];
+const matrix = (n) => {
+    let start_row = 0
+    let start_col = 0
+    let end_row = n - 1
+    let end_col = n - 1
+    let arr = []
+    let count = 1
     for (let i = 0; i < n; i++) {
-        results.push([]);
+        arr.push([])
     }
-    let counter = 1;
-    let startColumn = 0;
-    let endColumn = n - 1;
-    let startRow = 0;
-    let endRow = n - 1;
-    while (startColumn <= endColumn && startRow <= endRow) {
-        // Top row
-        for (let i = startColumn; i <= endColumn; i++) {
-            results[startRow][i] = counter;
-            counter++;
+    while (start_row < end_row + 1 && start_col < end_col + 1) {
+        for (let i = start_col; i < end_col + 1; i++) {
+            arr[start_row][i] = count
+            count++
         }
-        startRow++;
-        // Right column
-        for (let i = startRow; i <= endRow; i++) {
-            results[i][endColumn] = counter;
-            counter++;
+        start_row++
+
+        for (let i = start_row; i < end_row + 1; i++) {
+            arr[i][end_col] = count
+            count++
         }
-        endColumn--;
-        // Bottom row
-        for (let i = endColumn; i >= startColumn; i--) {
-            results[endRow][i] = counter;
-            counter++;
+        end_col--
+
+        for (let i = end_col; i > start_col - 1; i--) {
+            arr[end_row][i] = count
+            count++
+        }   
+        end_row--
+
+        for (let i = end_row; i > start_row - 1; i--) {
+            arr[i][start_col] = count
+            count ++
         }
-        endRow--;
-        // start column
-        for (let i = endRow; i >= startRow; i--) {
-            results[i][startColumn] = counter;
-            counter++;
-        }
-        startColumn++;
+        start_col++
     }
-    return results;
-};
 
-const matrixRecursive = n => {
-    const arr2D = new Array(n).fill(0).map(() => new Array(n).fill(0));
+    return arr
+}
 
-    const recursion = (offset = 0, size = n, counter = 1) => {
-        if (size < 1) return;
-        if (size === 1) {
-            arr2D[offset][offset] = counter;
-            return;
+const matrixToString = (n) => {
+    let arr = matrix(n)
+    let str = ''
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr[i].length; j++) {
+            str += arr[i][j] + '\t'
+            if (j === arr[i].length - 1) {
+                str +='\n'
+            }
         }
+    }
 
-        // top row
-        for (let i = 0; i < size - 1; i++) {
-            arr2D[0 + offset][i + offset] = counter++;
-        }
+    return str
+}
 
-        // rightmost column
-        for (let i = 0; i < size - 1; i++) {
-            arr2D[i + offset][n - 1 - offset] = counter++;
-        }
+console.log(matrix(5))
 
-        // bottom row
-        for (let i = size - 1; i > 0; i--) {
-            arr2D[n - 1 - offset][i + offset] = counter++;
-        }
-
-        // leftmost column
-        for (let i = size - 1; i > 0; i--) {
-            arr2D[i + offset][0 + offset] = counter++;
-        }
-
-        recursion(offset + 1, size - 2, counter);
-    };
-
-    recursion();
-};
-
-module.exports = matrix;
+module.exports = matrixToString
