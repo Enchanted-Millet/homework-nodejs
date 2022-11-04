@@ -20,16 +20,15 @@ mongoose
 // mongoose.set("bufferCommands", false);
 
 function addUser2db(name, age, sex, title) {
-  //
-  const user2 = new User2();
-  user2.name = name;
-  user2.age = age;
-  user2.sex = sex;
-  user2.title = title;
-  user2.save();
-  console.log(user2);
+  const user3 = new User2();
+  user3.name = name;
+  user3.age = age;
+  user3.sex = sex;
+  user3.title = title;
+  user3.save();
+  console.log(user3);
 }
-// addUser2db("Bah", 29, "m", "DS");
+// addUser2db("Uxas", 21, "m", "trouble maker");
 // addUser2db("Jiu", 24, "m", "Manager");
 // addUser2db("Yak", 42, "f", "Consultant");
 
@@ -39,9 +38,8 @@ const port = 8808;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// app.use("/", (req, res) => {
-//   res.send("yh 2nd backend homework -- homepage");
-// });
-app.use("/app", routes);
+app.use("/app/user", routes);
+
+app.use("/", routes);
 
 app.listen(port, () => console.log(`listening to port ${port}`));
