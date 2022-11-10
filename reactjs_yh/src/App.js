@@ -1,10 +1,11 @@
 import React from "react";
-import U1App from "./U1/index";
+// import U1App from "./U1/index";
+import U2App from "./U2/index";
 
 function App() {
   return (
     <div className="App">
-      <U1App />
+      <U2App />
     </div>
   );
 }
