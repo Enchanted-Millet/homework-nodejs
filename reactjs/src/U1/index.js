@@ -31,4 +31,6 @@ class App extends Component {
     }
 }
 
+// UI = F(X)
+
 export default App

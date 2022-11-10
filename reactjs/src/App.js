@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.less'
 
 const U1 = React.lazy(() => import('./U1'))
 const U2 = React.lazy(() => import('./U2'))

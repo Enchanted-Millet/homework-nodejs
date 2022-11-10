@@ -27,8 +27,8 @@ export default class Counter extends Component {
     }
 
     // handleChange(e) {
-    handleChange = e => {
-        const { name } = e.target
+    handleChange = name => () => {
+        // const { name } = e.target
         if (name === 'plus') {
             this.setState(prevState => ({
                 countNumber: prevState.countNumber + 1
@@ -50,13 +50,17 @@ export default class Counter extends Component {
                             name="plus"
                             type="primary"
                             block
-                            onClick={this.handleChange}
+                            onClick={this.handleChange('plus')}
                         >
                             +
                         </Button>
                     </Col>
                     <Col span={12}>
-                        <Button block name="minus" onClick={this.handleChange}>
+                        <Button
+                            block
+                            name="minus"
+                            onClick={this.handleChange('minus')}
+                        >
                             -
                         </Button>
                     </Col>

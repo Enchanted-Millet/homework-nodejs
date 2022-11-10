@@ -56,6 +56,11 @@ export default class Form extends Component {
         //     devSkills: [],
         //     terms: []
         // },
+        // values: {
+        //     username: '',
+        //     email: '',
+        //     confirmEmail: ''
+        // },
         email: { value: 's.jobs@apple.com', errors: [] },
         confirmEmail: { value: 's.jobs@apple.com', errors: [] },
         password: { value: '1QQ2ww3ee', errors: [] },
@@ -115,7 +120,7 @@ export default class Form extends Component {
 
     handleValidate =
         (name, option = {}) =>
-        _ => {
+        () => {
             const require = this.requirements?.[name]
             if (require) {
                 const field = this.state[name]
@@ -142,16 +147,27 @@ export default class Form extends Component {
             }
         }
 
+    validateField = (name, option = {}) => this.handleValidate(name, option)()
+
     handleSubmit = async e => {
         e.preventDefault()
-        Promise.all([
-            this.handleValidate('username')(),
-            this.handleValidate('email')(),
-            this.handleValidate('confirmEmail')(),
-            this.handleValidate('password', { minLen: 8 })(),
-            this.handleValidate('devSkills')(),
-            this.handleValidate('terms')()
-        ])
+
+        const allValidators = Object.keys(initialState).map(fieldName => {
+            if (fieldName === 'password') {
+                return this.validateField(fieldName, { minLen: 8 })
+            }
+            return this.validateField(fieldName)
+        })
+
+        Promise.all(allValidators)
+            // Promise.all([
+            //     this.handleValidate('username')(),
+            //     this.handleValidate('email')(),
+            //     this.handleValidate('confirmEmail')(),
+            //     this.handleValidate('password', { minLen: 8 })(),
+            //     this.handleValidate('devSkills')(),
+            //     this.handleValidate('terms')()
+            // ])
             .then(() => {
                 for (let { errors } of Object.values(this.state)) {
                     if (errors.length > 0) {
@@ -182,11 +198,11 @@ export default class Form extends Component {
         this.setState(emptyState)
     }
 
-    handleNameChange = e => {
-        this.setState({
-            username: e.target.value
-        })
-    }
+    // handleNameChange = e => {
+    //     this.setState({
+    //         username: e.target.value
+    //     })
+    // }
 
     render() {
         return (
