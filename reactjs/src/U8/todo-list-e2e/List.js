@@ -31,7 +31,7 @@ const ToDoItem = ({ text, checked, color, handleClick }) => {
 export default function List({ items, handleCheckItem, handleMarkAllDone }) {
     const dispatch = useDispatch()
 
-    const handleClick = id => () => {
+    const handleClick = id => {
         handleCheckItem(id)
     }
 
@@ -90,14 +90,14 @@ export default function List({ items, handleCheckItem, handleMarkAllDone }) {
                 data-testid="list-group"
                 style={{ width: '100%', margin: '30px 0' }}
             >
-                {items.map(({ id, text, completed, color }) => {
+                {items.map(({ _id, text, completed, color }, id) => {
                     return (
                         <li key={id} className="list-group-item">
                             <ToDoItem
                                 text={text}
                                 checked={completed}
                                 color={color}
-                                handleClick={handleClick(id)}
+                                handleClick={() => handleClick(id)}
                             />
                         </li>
                     )

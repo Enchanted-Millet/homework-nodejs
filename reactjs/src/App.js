@@ -8,12 +8,13 @@ const U4 = React.lazy(() => import('./U4'))
 const U5 = React.lazy(() => import('./U5'))
 const U6 = React.lazy(() => import('./U6'))
 const U7 = React.lazy(() => import('./U7'))
+const U8 = React.lazy(() => import('./U8'))
 
 export default class App extends Component {
     render() {
         return (
             <React.Suspense fallback={<div>Loading...</div>}>
-                <U2 />
+                <U8 />
             </React.Suspense>
         )
     }
